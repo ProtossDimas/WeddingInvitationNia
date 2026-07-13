@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.addEventListener('beforeunload', function(){ window.scrollTo(0, 0); });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dimas & Nia — Undangan Pernikahan</title>
+<meta name="description" content="Undangan Pernikahan Dimas & Nia">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.ytimg.com">
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Mrs+Saint+Delafield&family=Italiana&family=Alex+Brush&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Italianno&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF5EA;
+    --cream-deep:#F1E6D2;
+    --maroon:#6E1F2B;
+    --maroon-deep:#4C141D;
+    --gold:#C9A14A;
+    --gold-soft:#E3CD93;
+    --ink:#2B1A1A;
+    --sage:#7C8B6F;
+    --shadow: 0 18px 40px -20px rgba(76,20,29,0.35);
+    --ease: cubic-bezier(.22,1,.36,1);
+    /* ---- Sistem tipografi (4 lapis, khas undangan pernikahan arsitektural) ----
+       --font-display : Playfair Display — judul besar, nama section, angka penting
+       --font-script   : Italianno       — nama mempelai, tanda tangan, aksen romantis
+       --font-copy     : Cormorant Garamond — kutipan, paragraf narasi, isi ucapan (serif ringan, mudah dibaca, terasa "ditulis tangan editorial")
+       --font-label    : Jost            — eyebrow uppercase, tombol, form, angka/label struktural (sentuhan presisi arsitek) */
+    --font-display:'Playfair Display',serif;
+    --font-script:'Italianno',cursive;
+    --font-copy:'Cormorant Garamond',serif;
+    --font-label:'Jost',sans-serif;
+    /* ---- Judul section (screenshot: "Wedding" tipis-lebar + "Event" script besar) ---- */
+    --font-title:'Italiana',serif;
+    --font-title-accent:'Alex Brush',cursive;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; overflow-x:hidden; max-width:100%; scroll-snap-type:y proximity;}
+  body{
+    margin:0;
+    font-family:'Jost',sans-serif;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(201,161,74,0.10), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(110,31,43,0.08), transparent 45%),
+      var(--maroon-deep);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  /* ---------- fixed photo background (diam saat discroll) ---------- */
+  /* Foto ini HANYA mengisi lebar kartu/.stage (bukan area maroon di luar),
+     tapi posisinya fixed relatif ke viewport sehingga tetap diam di tempat
+     walau konten di dalam kartu discroll. Lebar & breakpoint-nya sengaja
+     dibuat identik dengan .stage supaya selalu pas menempel di baliknya. */
+  #siteBg{
+    position:fixed; inset:0; z-index:0;
+    max-width:520px; margin:0 auto;
+    background: url('/photos/bgweb.jpeg') center center/cover no-repeat;
+    pointer-events:none;
+    transition:max-width .2s;
+  }
+  #siteBg::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 15% 8%, rgba(201,161,74,0.12), transparent 45%),
+      radial-gradient(circle at 85% 92%, rgba(110,31,43,0.12), transparent 45%),
+      rgba(75,25,30,0.14);
+  }
+  @media (min-width:700px){ #siteBg{ max-width:680px; } }
+  @media (min-width:1000px){ #siteBg{ max-width:840px; } }
+  @media (min-width:1300px){ #siteBg{ max-width:1000px; } }
+  .stage{
+    max-width:520px;
+    margin:0 auto;
+    position:relative;
+    z-index:1;
+    min-height:100vh;
+    box-shadow: 0 0 60px rgba(0,0,0,0.35);
+    transition: max-width .2s;
+  }
+  h1,h2,h3,.script{font-family:'Playfair Display',serif;}
+  .script{font-family:'Italianno',cursive; font-weight:400;}
+  /* ---- Judul full-script ala kata ke-2 di screenshot ("Event"): dipakai Alex Brush ---- */
+  .title-fx{ font-family:var(--font-title-accent); font-weight:400; }
+  .script-name{font-family:'Italianno',cursive; font-weight:400;}
+  .eyebrow{
+    font-family:'Jost',sans-serif;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    font-size:.7rem;
+    color:var(--maroon);
+    opacity:.85;
+  }
+  a{color:inherit;}
+
+  /* ---------- ornament frame ---------- */
+  .corner-orn{
+    position:absolute; width:64px; height:64px; opacity:.55; pointer-events:none;
+  }
+  .corner-orn svg{width:100%;height:100%;}
+  .tl{top:14px; left:14px;}
+  .tr{top:14px; right:14px; transform:scaleX(-1);}
+  .bl{bottom:14px; left:14px; transform:scaleY(-1);}
+  .br{bottom:14px; right:14px; transform:scale(-1,-1);}
+
+  /* ----------  ---------- */
+  #cover{
+    position:fixed; inset:0; z-index:50;
+    background:
+      linear-gradient(180deg, rgba(20,10,10,.38) 0%, rgba(20,10,10,.12) 32%, rgba(20,10,10,.20) 68%, rgba(15,7,7,.55) 100%),
+      url('/photos/coverdepan.jpeg') center center/cover no-repeat,
+      var(--cream);
+    color:var(--cream);
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-end;
+    text-align:center; padding:32px; padding-bottom:56px;
+    transition: transform 1.1s var(--ease), opacity 1s var(--ease);
+    overflow:hidden;
+  }
+  #cover.opened{ transform:translateY(-100%); opacity:0; pointer-events:none; }
+  #cover .cover-overlay{ display:none; }
+  #cover .cover-title, #cover .cover-to, #cover .cover-guest, #cover .cover-names-sub, #cover .cover-date-sub{ text-shadow: 0 2px 16px rgba(0,0,0,.5); }
+  #cover .cover-top-block{
+    position:absolute; left:0; right:0; top:96px;
+    display:flex; flex-direction:column; align-items:center; z-index:2;
+  }
+  #cover .cover-title{ margin-top:0; margin-bottom:10px; }
+  #cover .cover-names-sub{
+    font-family:'Italianno',cursive; font-size:2.1rem; line-height:1; color:var(--maroon-deep);
+    position:relative; z-index:2; margin-top:2px;
+    text-shadow:0 2px 10px rgba(255,255,255,.55), 0 1px 4px rgba(0,0,0,.25);
+  }
+  #cover .cover-date-sub{
+    font-family:'Jost',sans-serif; font-size:.72rem; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--cream); opacity:.9; position:relative; z-index:2; margin-top:8px;
+  }
+  #cover .cover-to{ margin-top:22px; font-family:'Jost',sans-serif; font-style:normal; letter-spacing:.15em; text-transform:uppercase; font-size:.72rem; color:var(--maroon-deep); text-shadow:0 2px 10px rgba(255,255,255,.55), 0 1px 4px rgba(0,0,0,.25); }
+  #cover .cover-guest{ font-family:'Jost',sans-serif; font-style:normal; letter-spacing:.15em; text-transform:uppercase; font-size:.72rem; }
+  #cover .open-btn{ font-family:'Jost',sans-serif; font-style:normal; letter-spacing:.15em; text-transform:uppercase; font-weight:500; font-size:.72rem; }
+
+  /* ---------- WELCOME INTRO: teks tengah muncul setelah cover dibuka ---------- */
+  .fl-center{
+    position:absolute; inset:0; z-index:2;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:32px; opacity:0;
+    animation:flCenterIn 1s var(--ease) forwards; animation-delay:2.05s;
+  }
+  @keyframes flCenterIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+  .fl-eyebrow{
+    font-family:'Jost',sans-serif; letter-spacing:.3em; text-transform:uppercase;
+    font-size:.68rem; color:var(--maroon); opacity:.85;
+  }
+  .fl-names{
+    font-family:'Italianno',cursive; font-size:3.4rem; line-height:1; color:var(--maroon-deep);
+    margin-top:14px;
+  }
+  .fl-quote{ margin-top:20px; font-family:var(--font-copy); font-size:1.05rem; line-height:1.75; color:var(--ink); opacity:.85; font-style:italic; max-width:320px; }
+  .fl-quote-src{ display:block; margin-top:8px; font-style:normal; font-size:.68rem; letter-spacing:.1em; color:var(--maroon); text-transform:uppercase; }
+  @media (min-width:700px){ .fl-names{ font-size:4.2rem; } .fl-quote{ max-width:420px; font-size:.92rem; } }
+
+  /* ---------- WELCOME (The Wedding Of) — section sendiri, muncul setelah cover, sebelum Mempelai ---------- */
+  #welcome{
+    position:relative; min-height:100svh; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  #welcome .welcome-inner{
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+    padding:32px;
+  }
+  #welcome .cover-eyebrow, #welcome .cover-title, #welcome .cover-quote, #welcome .cover-quote-src{
+    text-shadow: 0 2px 16px rgba(0,0,0,.5);
+  }
+  #welcome::before, #welcome::after{ content:none; }
+
+  .cover-eyebrow{
+    font-family:'Jost',sans-serif; letter-spacing:.32em; text-transform:uppercase;
+    font-size:.7rem; color:var(--cream); opacity:.9;
+    position:relative; z-index:2;
+  }
+  .cover-title{
+    font-family:'Italianno',cursive; color:var(--cream);
+    font-size:3.2rem; line-height:1.05; margin:12px 0 24px;
+    position:relative; z-index:2;
+  }
+  .cover-title .amp{ font-size:2.5rem; display:block; color:var(--gold-soft); }
+  .cover-quote{
+    font-family:var(--font-copy);
+    font-size:1.05rem; line-height:1.75; color:var(--cream); opacity:.92; font-style:italic;
+    max-width:320px; margin:0 auto; position:relative; z-index:2;
+  }
+  .cover-quote-src{
+    display:block; margin-top:8px; font-style:normal; font-size:.7rem;
+    letter-spacing:.1em; color:var(--gold-soft); text-transform:uppercase;
+  }
+  @media (min-width:700px){
+    .cover-title{ font-size:4rem; }
+    .cover-title .amp{ font-size:3.1rem; }
+    .cover-quote{ max-width:420px; font-size:.92rem; }
+  }
+
+  /* envelope */
+ /* .envelope-wrap{ position:relative; width:250px; margin:34px auto 26px; z-index:2; }
+  .envelope{
+    position:relative; width:250px; height:164px;
+    background:linear-gradient(160deg, var(--maroon) 0%, var(--maroon-deep) 100%);
+    border-radius:3px;
+    box-shadow:0 18px 32px -14px rgba(76,20,29,0.45);
+  }
+  .envelope::before{
+    content:""; position:absolute; top:0; left:0; width:0; height:0;
+    border-left:125px solid transparent;
+    border-right:125px solid transparent;
+    border-top:84px solid var(--maroon-deep);
+    filter:brightness(1.1);
+  }
+  .envelope-seal{
+    position:absolute; top:78px; left:50%; transform:translate(-50%,-50%);
+    width:54px; height:54px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 70%);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 12px rgba(76,20,29,0.4), inset 0 -2px 4px rgba(76,20,29,0.25);
+    font-family:'Italianno',cursive; font-size:1.55rem; color:var(--maroon-deep);
+    z-index:3;
+  }
+  .envelope-flourish{ position:absolute; width:130px; pointer-events:none; }
+  .envelope-flourish.fl-tr{ top:-58px; right:-46px; height:130px; }
+  .envelope-flourish.fl-bl{ bottom:-78px; left:-46px; height:160px; }
+  .envelope-flourish svg{ width:100%; height:100%; overflow:visible; } */
+
+  .cover-to{ margin-top:22px; font-size:1.35rem; opacity:.95; letter-spacing:.05em; color:var(--gold-soft); position:relative; z-index:2;}
+  .cover-guest{ font-family:'Playfair Display',serif; font-style:italic; font-size:1.35rem; margin-top:4px; color:var(--cream); position:relative; z-index:2;}
+
+  .open-btn{
+    margin-top:32px;
+    position:relative; z-index:2;
+    background:transparent;
+    border:1.5px solid var(--cream);
+    color:var(--cream);
+    padding:15px 34px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    letter-spacing:.02em;
+    font-size:.95rem;
+    border-radius:3px 14px 3px 14px / 12px 3px 12px 3px;
+    cursor:pointer;
+    display:inline-flex; align-items:center; gap:10px;
+    text-decoration:underline;
+    text-underline-offset:5px;
+    transition:background .35s var(--ease), border-color .35s var(--ease), transform .3s var(--ease);
+  }
+  .open-btn:hover,
+  .open-btn:active,
+  .open-btn.pressed{
+    background:
+      linear-gradient(100deg, transparent 0%, rgba(0,0,0,0.08) 15%, transparent 30%,
+        rgba(0,0,0,0.06) 55%, transparent 75%),
+      var(--maroon-deep);
+    border-color:var(--maroon-deep);
+    transform:translateY(-2px);
+  }
+  .open-btn svg{ width:14px; height:14px; text-decoration:none; }
+
+  /* ---------- music toggle ---------- */
+  #musicToggle{
+    position:fixed; bottom:18px; right:18px; z-index:60;
+    width:44px; height:44px; border-radius:50%;
+    background:var(--maroon); color:var(--gold-soft);
+    border:1px solid var(--gold-soft);
+    align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:var(--shadow);
+    transition:opacity .5s var(--ease), transform .5s var(--ease);
+    display:none; opacity:0; transform:scale(.6);
+  }
+  #musicToggle.visible{ display:flex; }
+  #musicToggle.visible.show-in{ opacity:1; transform:scale(1); }
+  #musicToggle svg{ width:18px; height:18px; }
+  #musicToggle.spin svg{ animation: spin 4s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  /* ---------- loading screen ---------- */
+  #loadingScreen{
+    position:fixed; inset:0; z-index:200;
+    background:var(--maroon-deep);
+    color:var(--cream);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    transition: opacity .8s var(--ease), visibility .8s var(--ease);
+  }
+  #loadingScreen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  #loadingScreen .ls-eyebrow{
+    font-family:'Jost',sans-serif; font-size:.68rem; letter-spacing:.32em;
+    text-transform:uppercase; color:var(--gold-soft); margin-bottom:10px;
+  }
+  #loadingScreen .ls-title{
+    font-family:'Playfair Display',serif; font-style:italic; font-weight:500;
+    font-size:1.3rem; letter-spacing:.08em; color:var(--cream); margin-bottom:18px;
+  }
+  #loadingScreen .ls-percent{
+    font-family:'Jost',sans-serif; font-size:.78rem; letter-spacing:.15em;
+    color:var(--gold-soft); font-variant-numeric:tabular-nums;
+  }
+  #loadingScreen .ls-bar{
+    width:120px; height:1px; background:rgba(227,205,147,0.25); margin-top:14px; position:relative; overflow:hidden;
+  }
+  #loadingScreen .ls-bar-fill{
+    position:absolute; top:0; left:0; height:100%; width:0%;
+    background:var(--gold-soft); transition:width .25s var(--ease);
+  }
+
+  /* ---------- sections ---------- */
+  section{ position:relative; padding:12px 24px; overflow:hidden; scroll-snap-align:start; scroll-snap-stop:normal; will-change:transform,opacity; transform:translateZ(0); }
+
+  section:not(#hero) > *:not(.section-bg){ position:relative; z-index:1; }
+  #hero > *{ position:relative; z-index:1; }
+
+  /* Custom background photo/video per section (lihat SECTION_BACKGROUNDS di script) */
+  .section-bg{
+    position:absolute; inset:0; z-index:0; overflow:hidden;
+    transform:translate3d(0,0,0); -webkit-transform:translate3d(0,0,0);
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    contain:paint;
+  }
+  .section-bg img, .section-bg video{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transform:translate3d(0,0,0); -webkit-transform:translate3d(0,0,0);
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  }
+  .section-bg::after{
+    content:""; position:absolute; inset:0;
+    background:var(--section-bg-tint, rgba(251,245,234,0.86));
+  }
+  section.has-bg > *:not(.section-bg){ position:relative; z-index:1; }
+  /* NOTE: transform sengaja TIDAK dipakai di sini. Section yang sama juga di-transform
+     terus-menerus oleh script parallax scroll (lihat "FLOW" di script bawah) lewat inline
+     style setiap frame. Kalau .reveal ikut menganimasikan transform lewat CSS transition,
+     dua sistem itu akan rebutan menulis properti transform yang sama pada elemen yang sama,
+     dan hasilnya adalah getaran/shake yang terlihat jelas terutama pada video background.
+     Makanya reveal cukup pakai opacity saja, transform sepenuhnya milik parallax scroll. */
+  /* Reveal fly-in: transform TIDAK ditaruh di element .reveal (section) itu sendiri,
+     karena section itu juga di-transform terus-menerus tiap frame scroll oleh FLOW.
+     Sebagai gantinya, fly-in translateY dipasang di direct children-nya. Dua elemen
+     berbeda (section vs child) menulis transform masing-masing tanpa rebutan properti
+     yang sama, jadi tidak ada shake/getar, tapi tetap terasa "muncul dari bawah". */
+  .reveal{ opacity:1; }
+  .reveal > *:not(.section-bg){
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity 1.4s cubic-bezier(.16,.8,.24,1), transform 1.4s cubic-bezier(.16,.8,.24,1);
+    will-change:opacity, transform;
+  }
+  .reveal.show > *:not(.section-bg){
+    opacity:1;
+    transform:translateY(0);
+  }
+  /* stagger halus per elemen supaya isi section muncul beruntun, bukan serentak */
+  .reveal > *:not(.section-bg):nth-child(1){ transition-delay:.1s; }
+  .reveal > *:not(.section-bg):nth-child(2){ transition-delay:.25s; }
+  .reveal > *:not(.section-bg):nth-child(3){ transition-delay:.4s; }
+  .reveal > *:not(.section-bg):nth-child(4){ transition-delay:.55s; }
+  .reveal > *:not(.section-bg):nth-child(5){ transition-delay:.7s; }
+  .reveal > *:not(.section-bg):nth-child(n+6){ transition-delay:.75s; }
+  @media (prefers-reduced-motion: reduce){
+    .reveal > *:not(.section-bg){ opacity:1; transform:none; transition:none; }
+  }
+
+  /* Fly-in per teks (granular): dipasang lewat JS ke elemen teks individual
+     (judul, eyebrow, paragraf, label, item timeline, dll) supaya tiap tulisan
+     "kejut" muncul satu-satu saat di-scroll, bukan cuma serentak per section. */
+  .fly-text{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .85s cubic-bezier(.16,.8,.24,1), transform .85s cubic-bezier(.16,.8,.24,1);
+    will-change:opacity, transform;
+  }
+  .fly-text.show{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .fly-text{ opacity:1; transform:none; transition:none; }
+  }
+
+  .divider{
+    width:1px; height:46px; background:linear-gradient(var(--gold), transparent);
+    margin:0 auto;
+  }
+  .divider-flower{ text-align:center; color:var(--gold); font-size:1.1rem; margin:6px 0 18px;}
+
+  /* HERO */
+  #hero{
+    text-align:center; padding-top:90px; padding-bottom:90px;
+    background:
+      radial-gradient(circle at 25% 15%, rgba(201,161,74,0.16), transparent 42%),
+      radial-gradient(circle at 80% 90%, rgba(110,31,43,0.09), transparent 40%);
+  }
+  #hero .eyebrow{ margin-bottom:14px;}
+  #hero h1{ font-size:2.5rem; line-height:1.15; color:var(--maroon-deep); margin:0;}
+  #hero .amp{ font-family:'Italianno',cursive; color:var(--gold); font-size:2.2rem; display:block;}
+  #hero .quote{ margin-top:26px; font-size:.92rem; line-height:1.8; color:var(--ink); opacity:.85; font-style:italic; max-width:340px; margin-inline:auto;}
+  #hero .quote-src{ display:block; margin-top:8px; font-style:normal; font-size:.72rem; letter-spacing:.1em; color:var(--maroon); text-transform:uppercase;}
+  #hero{ padding:0; }
+  #hero .hero-art{ width:100%; display:block; line-height:0; overflow:hidden; }
+  #hero .hero-art img{ width:100%; height:auto; display:block; transform:scale(1.55); transform-origin:center 38%; }
+  @media (min-width:700px){
+    #hero .hero-art img{ transform:scale(1.15); transform-origin:center 40%; }
+  }
+  @media (min-width:1100px){
+    #hero .hero-art img{ transform:scale(1); transform-origin:center; }
+  }
+
+  /* COUPLE */
+  #couple{ background:none; }
+  .couple-wrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; width:100%; }
+  .couple-card{
+    box-sizing:border-box;
+    width:100%;
+    text-align:center;
+    position:relative; margin-top:38px;
+  }
+  .couple-card:first-of-type{ margin-top:6px; }
+  .couple-photo{
+    width:88%; aspect-ratio:3/4.6; height:auto; border-radius:9999px;
+    margin:0 auto 24px;
+    background:linear-gradient(160deg,var(--gold-soft),var(--cream-deep));
+    border:8px solid #fff;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; box-shadow:0 24px 46px -20px rgba(76,20,29,0.4);
+    font-family:'Playfair Display',serif; font-size:2.4rem; color:var(--maroon);
+  }
+  .couple-photo img{ width:100%; height:100%; object-fit:cover; object-position:center 20%; cursor:pointer; }
+  .couple-card .script-name{
+    display:block; font-family:'Italianno',cursive; font-size:2.6rem;
+    line-height:1; color:var(--maroon-deep); margin:0 0 6px;
+    text-shadow:0 2px 14px rgba(255,255,255,.7);
+  }
+  .couple-card h3{ font-size:1.15rem; color:var(--cream); margin:0 0 16px; font-weight:600; line-height:1.3; text-shadow:0 2px 10px rgba(0,0,0,.4);}
+  .couple-card .role{
+    display:block; font-family:'Jost',sans-serif; text-transform:uppercase;
+    letter-spacing:.08em; font-size:.68rem; color:var(--gold-soft); opacity:.9; margin:0 0 6px;
+  }
+  .couple-card p{
+    font-family:'Playfair Display',serif; font-style:italic;
+    font-size:1.05rem; line-height:1.6; color:var(--cream); opacity:.95;
+    max-width:100%; margin:0 auto; text-shadow:0 1px 8px rgba(0,0,0,.4);
+  }
+  .couple-and{
+    align-self:center; text-align:center; font-family:'Italianno',cursive;
+    font-size:2.6rem; color:var(--maroon-deep); margin:22px 0; text-shadow:0 2px 10px rgba(255,255,255,.6);
+  }
+  .couple-ig{
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--maroon-deep); color:var(--cream);
+    padding:7px 14px; border-radius:999px; margin-top:14px;
+    font-size:.7rem; letter-spacing:.02em; text-decoration:none;
+    transition:.3s; max-width:100%;
+  }
+  .couple-ig:hover{ background:var(--maroon); }
+  .couple-ig svg{ width:13px; height:13px; flex-shrink:0; }
+
+  /* STORY */
+  #story{
+    color:var(--cream);
+    background:
+      radial-gradient(circle at 20% 10%, rgba(201,161,74,0.14), transparent 42%),
+      radial-gradient(circle at 85% 90%, rgba(201,161,74,0.08), transparent 40%),
+      var(--maroon-deep);
+  }
+  #story .eyebrow{ color:var(--gold-soft); }
+  #story h2{ color:var(--cream); text-align:center; font-size:2.2rem; margin:8px 0 36px;}
+  .timeline{ position:relative; padding-left:24px; border-left:1px solid rgba(227,205,147,.35); }
+  .t-item{ position:relative; margin-bottom:32px; }
+  .t-item:last-child{ margin-bottom:0;}
+  .t-item::before{
+    content:""; position:absolute; left:-29px; top:4px;
+    width:9px; height:9px; border-radius:50%; background:var(--gold-soft);
+    box-shadow:0 0 0 4px var(--maroon-deep);
+  }
+  .t-year{ font-size:.7rem; letter-spacing:.16em; color:var(--gold-soft); text-transform:uppercase;}
+  .t-item h4{ margin:4px 0 6px; font-size:1.1rem; font-weight:600;}
+  .t-item p{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; opacity:.85; margin:0; text-align:justify; text-justify:inter-word; }
+
+  /* EVENT */
+  #event{ text-align:center; }
+  #event .eyebrow{ color:var(--cream); text-shadow:0 1px 10px rgba(0,0,0,.35); font-size:.92rem; }
+  #event h2{ font-size:2.2rem; color:var(--cream); margin:8px 0 8px; text-shadow:0 2px 14px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.35);}
+  .wedding-event-title{
+    font-family:var(--font-title-accent); font-weight:400;
+    text-align:center; color:var(--cream);
+    font-size:2.6rem; line-height:1.3; letter-spacing:.02em;
+    margin:6px 0 22px;
+    text-shadow:0 2px 14px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.35);
+    position:relative; padding-bottom:22px;
+  }
+  .wedding-event-title::after{
+    content:""; position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+    width:64px; height:1px; background:rgba(251,245,234,0.6);
+  }
+  .countdown{ display:flex; justify-content:center; gap:10px; margin:28px 0 36px;}
+  .countdown-title{
+    text-align:center; font-family:'Playfair Display',serif; font-style:italic;
+    font-size:1.18rem; color:var(--cream); opacity:.9; margin:16px 0 0;
+    text-shadow:0 1px 10px rgba(0,0,0,.35);
+  }
+  .cd-box{ background:var(--cream-deep); border:1px solid var(--gold-soft); border-radius:14px; padding:14px 8px; min-width:64px;}
+  .cd-num{ font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--maroon-deep); display:block;}
+  .cd-label{ font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sage);}
+  .event-cards{ display:flex; flex-direction:column; gap:18px; }
+  .event-card{
+    border:1px solid var(--gold-soft); border-radius:18px; padding:26px 22px;
+    background:var(--cream-deep);
+  }
+  .event-card .ev-name{ font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--maroon-deep); margin-bottom:6px;}
+  .event-card .ev-date{ font-size:.85rem; color:var(--ink); margin-bottom:2px;}
+  .event-card .ev-time{ font-size:.85rem; color:var(--maroon); font-weight:500; margin-bottom:12px;}
+  .event-card .ev-place{ font-family:var(--font-copy); font-size:1.05rem; line-height:1.6; opacity:.8; margin-bottom:16px;}
+  .btn-line{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--maroon); color:var(--maroon-deep);
+    padding:10px 20px; border-radius:999px; font-size:.74rem;
+    letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
+    transition:.3s;
+  }
+  .btn-line:hover{ background:var(--maroon); color:var(--cream); }
+
+  /* LIVE STREAMING */
+  #livestream-photobooth{
+    text-align:center;
+    position:relative;
+    background:
+      radial-gradient(circle at 85% 12%, rgba(201,161,74,0.10), transparent 40%),
+      radial-gradient(circle at 15% 88%, rgba(110,31,43,0.08), transparent 40%),
+      linear-gradient(180deg, rgba(250,244,232,.18) 0%, rgba(250,244,232,.28) 100%);
+  }
+  #livestream-photobooth h2{ color:var(--cream); font-size:2.2rem; margin:8px 0 14px; text-shadow:0 2px 14px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.35);}
+  #livestream-photobooth p.lead{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; opacity:.95; color:var(--cream); max-width:320px; margin:0 auto 26px; line-height:1.7; text-shadow:0 1px 10px rgba(0,0,0,.35);}
+  #livestream-photobooth .eyebrow{ color:var(--cream); text-shadow:0 1px 10px rgba(0,0,0,.35); font-size:.7rem; }
+  .lp-block + .lp-block{ margin-top:34px; padding-top:34px; border-top:1px solid var(--gold-soft); }
+  .info-card{
+    background:var(--cream); border:1px solid var(--gold-soft); border-radius:18px;
+    padding:22px; max-width:320px; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    text-align:left;
+  }
+  .info-card .info-label{
+    font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sage);
+    display:flex; align-items:center; gap:6px; margin-bottom:4px;
+  }
+  .info-card .info-value{ font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--maroon-deep); }
+  .info-card .live-dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    background:var(--maroon); animation:live-pulse 1.6s infinite;
+  }
+  @keyframes live-pulse{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+  .info-card .btn-pill{
+    border:1px solid var(--maroon); background:none; color:var(--maroon-deep);
+    border-radius:999px; padding:8px 14px; font-size:.68rem; letter-spacing:.06em;
+    text-transform:uppercase; white-space:nowrap; text-decoration:none; flex-shrink:0;
+  }
+
+  /* GALLERY — vertical grid, ala polaroid */
+  #gallery{ padding-left:0; padding-right:0; }
+  #gallery .eyebrow, #gallery h2{ padding-left:28px; padding-right:28px; }
+  #gallery .eyebrow{ color:var(--cream); text-shadow:0 1px 10px rgba(0,0,0,.35), 0 2px 4px rgba(0,0,0,.3); font-size:.92rem; }
+  #gallery h2{ text-align:center; color:var(--cream); font-size:2.2rem; margin:8px 0 6px; text-shadow:0 2px 14px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.35);}
+  .gallery-caption{
+    text-align:center; font-family:'Playfair Display',serif; font-style:italic;
+    font-size:1.15rem; color:var(--cream); opacity:.95; margin:0 0 26px; padding:0 30px; line-height:1.6;
+    text-shadow:0 1px 10px rgba(0,0,0,.4), 0 1px 4px rgba(0,0,0,.35);
+  }
+  /* ---- Gallery carousel: 1 foto besar + auto-slide + strip thumbnail ---- */
+  .gallery-carousel{ width:100%; padding:10px 20px 12px; }
+  .gc-main{ position:relative; border-radius:18px; overflow:hidden; background:rgba(0,0,0,.15);
+    box-shadow:
+      0 1px 1px rgba(76,20,29,.1),
+      0 14px 26px -14px rgba(20,8,10,.55),
+      0 4px 10px -4px rgba(20,8,10,.35);
+  }
+  .gc-track{
+    display:flex; width:100%; aspect-ratio:3/4; overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .gc-track::-webkit-scrollbar{ display:none; }
+  .gc-slide{
+    flex:0 0 100%; width:100%; height:100%; scroll-snap-align:center;
+    position:relative; cursor:pointer; background:var(--maroon-deep);
+  }
+  .gc-slide img, .gc-slide video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gc-slide .play-badge{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(43,26,29,0.18);
+  }
+  .gc-slide .play-badge svg{ width:44px; height:44px; fill:rgba(251,245,234,0.92); filter:drop-shadow(0 2px 4px rgba(0,0,0,.4)); }
+  .gc-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:38px; height:38px; border-radius:50%; border:none;
+    background:rgba(20,10,10,0.35); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    backdrop-filter:blur(2px); transition:background .25s var(--ease);
+  }
+  .gc-arrow:hover{ background:rgba(20,10,10,0.55); }
+  .gc-arrow svg{ width:20px; height:20px; }
+  .gc-prev{ left:12px; }
+  .gc-next{ right:12px; }
+  .gc-scroll-hint{
+    position:absolute; bottom:10px; left:50%; transform:translateX(-50%); z-index:3;
+    width:30px; height:30px; border-radius:50%; background:rgba(20,10,10,0.35);
+    display:flex; align-items:center; justify-content:center; color:var(--cream);
+    animation:gc-bounce 1.8s ease-in-out infinite;
+  }
+  .gc-scroll-hint svg{ width:16px; height:16px; }
+  @keyframes gc-bounce{ 0%,100%{ transform:translateX(-50%) translateY(0); } 50%{ transform:translateX(-50%) translateY(4px); } }
+  .gc-thumbs{
+    display:flex; gap:8px; margin-top:12px; padding:2px; overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .gc-thumbs::-webkit-scrollbar{ display:none; }
+  .gc-thumb{
+    flex:0 0 auto; width:64px; height:64px; border-radius:10px; overflow:hidden;
+    cursor:pointer; position:relative; border:2px solid transparent;
+    opacity:.6; transition:opacity .25s var(--ease), border-color .25s var(--ease);
+  }
+  .gc-thumb img, .gc-thumb video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gc-thumb.active{ opacity:1; border-color:var(--gold-soft); }
+  .gc-thumb .play-badge{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(43,26,29,0.25); }
+  .gc-thumb .play-badge svg{ width:18px; height:18px; fill:rgba(251,245,234,0.92); }
+
+
+  .lightbox{
+    position:fixed; inset:0; z-index:80; background:rgba(43,26,26,0.92);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+    opacity:0; visibility:hidden; transition:opacity .25s var(--ease);
+  }
+  .lightbox.open{ opacity:1; visibility:visible; }
+  .lightbox-content{ max-width:100%; max-height:100%; overflow:hidden; }
+  .lightbox-content img{ max-width:100%; max-height:88vh; border-radius:10px; display:block; margin:0 auto; cursor:zoom-in; touch-action:none; transform-origin:center center; will-change:transform; }
+  .lightbox-content img.is-zoomed{ cursor:grab; }
+  .lightbox-content img.is-dragging{ cursor:grabbing; }
+  .lightbox-content video{ max-width:100%; max-height:88vh; border-radius:10px; display:block; margin:0 auto; }
+  .lightbox-close{
+    position:absolute; top:18px; right:22px; background:none; border:none;
+    color:var(--cream); font-size:2rem; line-height:1; cursor:pointer; z-index:2;
+  }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+    width:42px; height:42px; border-radius:50%;
+    background:rgba(43,26,26,0.55); border:1px solid rgba(251,245,234,0.35);
+    color:var(--cream); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .25s var(--ease);
+  }
+  .lightbox-nav:hover{ background:rgba(43,26,26,0.8); }
+  .lightbox-nav svg{ width:22px; height:22px; }
+  .lightbox-prev{ left:14px; }
+  .lightbox-next{ right:14px; }
+  @media (min-width:700px){
+    .lightbox-prev{ left:28px; }
+    .lightbox-next{ right:28px; }
+  }
+
+  /* GIFT */
+  #gift{
+    text-align:center;
+    position:relative;
+    padding:0 20px 40px;
+    background:
+      radial-gradient(circle at 15% 85%, rgba(201,161,74,0.10), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(110,31,43,0.06), transparent 38%),
+      linear-gradient(180deg, rgba(250,244,232,.18) 0%, rgba(250,244,232,.28) 100%);
+  }
+  #gift .eyebrow{ color:var(--gold-soft); font-size:.7rem; position:relative; z-index:1; }
+  .gift-card{
+    background:var(--maroon-deep);
+    border-radius:16px;
+    padding:34px 26px 30px;
+    box-shadow:0 16px 30px -16px rgba(20,8,10,.55);
+    position:relative;
+  }
+  .gift-divider{ display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:18px; }
+  .gift-divider span{ width:52px; height:1px; background:rgba(227,205,147,.5); }
+  .gift-divider svg{ width:20px; height:20px; fill:var(--gold-soft); flex-shrink:0; }
+  .gift-title{
+    font-size:2.2rem; line-height:1.15;
+    color:var(--cream); margin:0 0 18px;
+  }
+  #gift p.lead{ font-family:var(--font-copy); font-size:1.05rem; font-style:italic; opacity:.92; color:var(--cream); max-width:320px; margin:0 auto 26px; line-height:1.8; }
+  .gift-show-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--cream); color:var(--maroon-deep); border:none;
+    border-radius:999px; padding:14px 26px; font-size:.8rem; letter-spacing:.04em;
+    font-weight:600; cursor:pointer; transition:transform .25s var(--ease), background .25s var(--ease);
+  }
+  .gift-show-btn:hover{ background:var(--cream-deep); transform:translateY(-1px); }
+  .gift-show-btn svg{ width:18px; height:18px; }
+  .gift-show-btn .gift-btn-label-close{ display:none; }
+  .gift-show-btn.is-open .gift-btn-label-open{ display:none; }
+  .gift-show-btn.is-open .gift-btn-label-close{ display:inline; }
+  .gift-details{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .5s var(--ease), opacity .4s var(--ease), margin-top .5s var(--ease);
+    margin-top:0;
+  }
+  .gift-details.is-open{ max-height:900px; opacity:1; margin-top:26px; }
+  .bank-card{
+    background:var(--cream); border:1px solid var(--gold-soft); border-radius:18px;
+    padding:22px; max-width:320px; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+  }
+  .bank-info{ text-align:left; display:flex; align-items:center; gap:12px; }
+  .bank-logo{
+    width:48px; height:48px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border:1px solid var(--gold-soft);
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+    overflow:hidden; padding:6px;
+  }
+  .bank-logo img{ width:100%; height:100%; object-fit:contain; }
+  .bank-info .bank-text{ display:flex; flex-direction:column; }
+  .bank-info .bank-name{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sage);}
+  .bank-info .bank-num{ font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--maroon-deep); margin:2px 0;}
+  .bank-info .bank-holder{ font-size:.78rem; opacity:.75;}
+  .copy-btn{
+    border:1px solid var(--maroon); background:none; color:var(--maroon-deep);
+    border-radius:999px; padding:8px 14px; font-size:.68rem; letter-spacing:.06em;
+    text-transform:uppercase; cursor:pointer; white-space:nowrap;
+  }
+  .copy-btn.copied{ background:var(--sage); border-color:var(--sage); color:#fff;}
+  .gift-address-card{
+    background:var(--cream); border:1px solid var(--gold-soft); border-radius:18px;
+    padding:22px; max-width:320px; margin:0 auto 14px;
+    display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
+  }
+  .gift-address-card .bank-name{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sage); }
+  .gift-address-card .gift-address-text{ font-family:'Playfair Display',serif; font-size:.95rem; color:var(--maroon-deep); line-height:1.6; }
+
+  /* RSVP / WISHES — background pakai foto rsvp.jpg, ditinta gelap supaya teks cream tetap kebaca */
+  #rsvp{
+    position:relative;
+    color:var(--cream);
+    padding:12px 28px 40px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.15) 35%, rgba(0,0,0,.55) 100%),
+      url('/photos/rsvp.jpg') center 20%/cover no-repeat;
+  }
+  #rsvp .eyebrow{ color:var(--gold-soft); opacity:1; position:relative; z-index:1; }
+  #rsvp h2{ text-align:center; color:var(--cream); font-size:2.2rem; margin:8px 0 8px; position:relative; z-index:1;}
+  #rsvp p.lead{ text-align:center; font-family:var(--font-copy); font-style:italic; font-size:1.05rem; opacity:.92; max-width:320px; margin:0 auto 30px; line-height:1.7; color:var(--cream); position:relative; z-index:1;}
+
+
+  /* elevated 3D card holding the form */
+  .rsvp-card{
+    position:relative; z-index:1;
+    background:linear-gradient(180deg, var(--cream) 0%, #F5EBD8 100%);
+    border-radius:16px;
+    padding:30px 24px 26px;
+    box-shadow:
+      0 24px 48px -18px rgba(0,0,0,.5),
+      0 2px 0 rgba(255,255,255,.6) inset,
+      0 -1px 0 rgba(0,0,0,.06) inset;
+    border:1px solid rgba(201,161,74,.25);
+  }
+  .rsvp-card form{ display:flex; flex-direction:column; gap:16px; }
+  .field label{ display:block; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--maroon); margin-bottom:7px; font-weight:600;}
+  .field input, .field select, .field textarea{
+    width:100%; border:1px solid rgba(110,31,43,.22); background:#fff;
+    box-shadow:inset 0 2px 4px rgba(76,20,29,.06);
+    border-radius:8px; padding:13px 14px; font-family:'Jost',sans-serif; font-size:.9rem; color:var(--ink);
+  }
+  .field input::placeholder, .field textarea::placeholder{ color:rgba(60,40,40,.4); }
+  .field select{ color-scheme:light; }
+  .field select option{ color:var(--ink); }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,161,74,.2);
+  }
+  .field textarea{ min-height:90px; resize:vertical; }
+  .submit-btn{
+    background:linear-gradient(180deg, var(--gold-soft), var(--gold));
+    color:var(--maroon-deep); border:none; border-radius:8px;
+    padding:15px; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+    font-weight:700; cursor:pointer; transition:.3s;
+    box-shadow:0 10px 20px -8px rgba(158,122,42,.6);
+  }
+  .submit-btn:hover{ background:var(--gold-soft); transform:translateY(-1px); }
+  .submit-btn:disabled{ opacity:.5; cursor:default; }
+  .form-status{ font-size:.78rem; text-align:center; min-height:1.2em; color:var(--maroon); }
+  .form-status.ok{ color:var(--sage,#5a7052); }
+  .form-status.err{ color:#a33; }
+
+  .wish-list{ margin-top:34px; display:flex; flex-direction:column; gap:14px; max-height:380px; overflow-y:auto; padding-right:4px; position:relative; z-index:1;}
+  .wish-item{ border-bottom:1px solid rgba(251,245,234,.25); padding-bottom:12px; }
+  .wish-item .w-name{ font-family:'Playfair Display',serif; font-size:.95rem; color:var(--cream); display:flex; align-items:center; gap:8px;}
+  .w-tag{ font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; padding:2px 8px; border-radius:999px; }
+  .w-tag.hadir{ background:rgba(227,205,147,.22); color:var(--gold-soft); }
+  .w-tag.tidak{ background:rgba(251,245,234,.12); color:var(--cream); }
+  .wish-item p{ font-family:var(--font-copy); font-size:1.05rem; line-height:1.6; margin:6px 0 0; opacity:.9; color:var(--cream);}
+  .wish-empty{ text-align:center; font-family:var(--font-copy); font-style:italic; font-size:1.05rem; opacity:.75; padding:20px 0; color:var(--cream);}
+
+  /* section Ucapan & Doa (terpisah dari RSVP) */
+  #wishes{
+    text-align:center;
+  }
+  #wishes h2{ color:var(--cream); font-size:2.2rem; margin:8px 0 8px; text-shadow:0 2px 14px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.35); }
+  #wishes > .eyebrow{ color:var(--cream); text-shadow:0 1px 10px rgba(0,0,0,.35); font-size:.92rem; }
+  #wishes > p.lead{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; opacity:.95; max-width:320px; margin:0 auto 30px; line-height:1.7; color:var(--cream); text-shadow:0 1px 10px rgba(0,0,0,.35); }
+  #wishes .wish-list{ text-align:left; }
+  #wishes .wish-item .w-name{ color:var(--maroon-deep); }
+  #wishes .wish-item p{ color:var(--ink); opacity:.85; }
+
+  /* CLOSING */
+  #closing{
+    text-align:center; color:var(--cream); padding:36px 28px 30px;
+    background:
+      radial-gradient(circle at 25% 20%, rgba(201,161,74,0.15), transparent 42%),
+      radial-gradient(circle at 80% 85%, rgba(201,161,74,0.08), transparent 38%),
+      var(--maroon-deep);
+  }
+  #closing p.closing-note{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; opacity:.85; line-height:1.75; max-width:340px; margin:0 auto 22px; }
+  #closing .closing-photo{
+    max-width:340px; margin:0 auto 26px;
+    border-radius:28px; overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  #closing .closing-photo img{
+    display:block; width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; object-position:center center;
+  }
+  #closing h2{
+    font-size:2.2rem; margin:6px 0 0; letter-spacing:.03em;
+    text-transform:uppercase; line-height:1.35; font-weight:700;
+  }
+  #closing .signature{ margin-top:14px; font-family:'Italianno',cursive; font-size:2.6rem; color:var(--gold-soft);}
+  #closing .made-with{ margin-top:40px; font-size:1.1rem; letter-spacing:.04em; opacity:.85; color:var(--cream); line-height:1.6; }
+  #closing .made-with-line{ font-size:.7rem; }
+  #closing .made-with-heart{
+    width:.85em; height:.85em; fill:var(--cream); vertical-align:-0.08em; display:inline-block;
+  }
+  footer{ text-align:center; padding:18px; font-size:.65rem; opacity:.5; background:var(--maroon-deep); color:var(--cream); letter-spacing:.06em;}
+
+  /* ---------- Desktop / tablet scaling ---------- */
+  @media (min-width:700px){
+    section{ padding-left:56px; padding-right:56px; }
+    #hero h1{ font-size:3.1rem; }
+    #hero .quote{ max-width:460px; font-size:1rem; }
+    .event-cards{ flex-direction:row; }
+    .event-card{ flex:1; }
+    .gallery-carousel{ padding-left:56px; padding-right:56px; }
+    #gallery .eyebrow, #gallery h2{ padding-left:56px; padding-right:56px; }
+  }
+  @media (min-width:1000px){
+    section{ padding-left:80px; padding-right:80px; }
+    #hero h1{ font-size:3.6rem; }
+    #gallery .eyebrow, #gallery h2{ padding-left:80px; padding-right:80px; }
+    .gallery-carousel{ padding-left:80px; padding-right:80px; max-width:520px; margin:0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<div id="siteBg"></div>
+
+<div class="stage">
+
+  <!-- ============ LOADING SCREEN ============ -->
+  <div id="loadingScreen">
+    <div class="ls-eyebrow">The Wedding of</div>
+    <div class="ls-title">Dimas &amp; Nia</div>
+    <div class="ls-percent" id="lsPercent">0%</div>
+    <div class="ls-bar"><div class="ls-bar-fill" id="lsBarFill"></div></div>
+  </div>
+
+  <!-- ============ COVER ============ -->
+  <div id="cover">
+    <div class="cover-top-block">
+      <h1 class="cover-title">The Beginning<br>of Forever</h1>
+      <div class="cover-names-sub">Dimas &amp; Nia</div>
+      <div class="cover-date-sub">Minggu, 26 Juli 2026</div>
+    </div>
+
+    <div class="cover-to">Kepada Yth</div>
+    <div class="cover-guest" id="guestName">Tamu Undangan</div>
+
+    <button class="open-btn" id="openBtn">
+      Buka Undangan
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <button id="musicToggle" aria-label="Putar musik">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+  </button>
+  <audio id="bgMusic" loop preload="none"></audio>
+
+  <!-- ============ WEDDING OF (muncul setelah Buka Undangan, sebelum Mempelai) ============ -->
+  <section id="welcome" class="reveal">
+    <div class="welcome-inner">
+      <div class="cover-eyebrow">The Wedding Of</div>
+      <h1 class="cover-title">Dimas<span class="amp">&amp;</span>Nia</h1>
+      <p class="cover-quote">
+        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya. Dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+        <span class="cover-quote-src">QS. Ar-Rum : 21</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ COUPLE ============ -->
+  <section id="couple" class="reveal">
+    <div style="text-align:center; margin-bottom:8px;">
+      <h2 class="script" style="font-family:'Alex Brush',cursive; font-size:2.2rem; color:var(--maroon-deep); margin:0 0 6px; text-shadow:0 2px 14px rgba(255,255,255,.7);">Bride and Groom</h2>
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.05rem; color:var(--cream); opacity:.95; max-width:320px; margin:0 auto; line-height:1.6; text-shadow:0 1px 8px rgba(0,0,0,.4);">Maha suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan, Ya Allah rahmatillah pernikahan kami</p>
+    </div>
+    <div class="couple-wrap">
+      <div class="couple-card">
+        <div class="couple-photo"><img id="couplePhotoDimas" src="/photos/dimas.jpg" alt="Dimas Alfian Wahyudi" loading="lazy" decoding="async" onerror="this.parentElement.textContent='D'"></div>
+        <span class="script-name">Dimas</span>
+        <h3>Dimas Alfian Wahyudi</h3>
+        <p>Putra dari Bapak Amad Sayudi &amp; Ibu Alfinah</p>
+        <a class="couple-ig" href="https://instagram.com/dimasalfw" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.16-.56.55-.9 1.11-1.16 1.77-.25.64-.42 1.37-.47 2.43C2 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.16 1.77.55.56 1.11.9 1.77 1.16.64.25 1.37.42 2.43.47C8.94 22 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47.66-.26 1.22-.6 1.77-1.16.56-.55.9-1.11 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43-.26-.66-.6-1.22-1.16-1.77-.55-.56-1.11-.9-1.77-1.16-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.85.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.3.87.34 1.85.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.85-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.87.3-1.85.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.85-.34-.47-.18-.8-.4-1.15-.75-.35-.35-.57-.68-.75-1.15-.13-.35-.3-.87-.34-1.85-.05-1.05-.06-1.37-.06-4.04s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.85.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.87-.3 1.85-.34C9.01 3.81 9.33 3.8 12 3.8zm0 3.06a5.14 5.14 0 100 10.28 5.14 5.14 0 000-10.28zm0 8.48a3.34 3.34 0 110-6.68 3.34 3.34 0 010 6.68zm5.34-8.68a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg>
+          dimasalfw
+        </a>
+      </div>
+      <p class="couple-and">&amp;</p>
+      <div class="couple-card">
+        <div class="couple-photo"><img id="couplePhotoNia" src="/photos/nia.jpg" alt="Sismadinia" loading="lazy" decoding="async" onerror="this.parentElement.textContent='N'"></div>
+        <span class="script-name">Nia</span>
+        <h3>Sismadinia</h3>
+        <p>Putri dari Bapak Syamsul Bakhri &amp; Ibu Ismiyati</p>
+        <a class="couple-ig" href="https://instagram.com/ssmadnia14" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.16-.56.55-.9 1.11-1.16 1.77-.25.64-.42 1.37-.47 2.43C2 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.16 1.77.55.56 1.11.9 1.77 1.16.64.25 1.37.42 2.43.47C8.94 22 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47.66-.26 1.22-.6 1.77-1.16.56-.55.9-1.11 1.16-1.77.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43-.26-.66-.6-1.22-1.16-1.77-.55-.56-1.11-.9-1.77-1.16-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.5.21 1.85.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.3.87.34 1.85.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.5-.34 1.85-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.87.3-1.85.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.5-.21-1.85-.34-.47-.18-.8-.4-1.15-.75-.35-.35-.57-.68-.75-1.15-.13-.35-.3-.87-.34-1.85-.05-1.05-.06-1.37-.06-4.04s.01-2.99.06-4.04c.04-.98.21-1.5.34-1.85.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.87-.3 1.85-.34C9.01 3.81 9.33 3.8 12 3.8zm0 3.06a5.14 5.14 0 100 10.28 5.14 5.14 0 000-10.28zm0 8.48a3.34 3.34 0 110-6.68 3.34 3.34 0 010 6.68zm5.34-8.68a1.2 1.2 0 11-2.4 0 1.2 1.2 0 012.4 0z"/></svg>
+          ssmadnia14
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STORY ============ -->
+  <section id="story" class="reveal">
+    <span class="eyebrow">Sekilas Cerita</span>
+    <h2 class="title-fx">Kisah Kami</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <span class="t-year">“When We Met”</span>
+        <h4>Awal Bertemu</h4>
+        <p>Kami pertama kali saling mengenal melalui media sosial. Beberapa waktu kemudian, kami bertemu secara tidak sengaja saat berada di kota yang sama. Dari pertemuan itu, kami merasa nyaman saat berbincang dan mulai saling mengenal lebih dekat.</p>
+      </div>
+      <div class="t-item">
+        <span class="t-year">“Becoming Us”</span>
+        <h4>Saling Meyakinkan</h4>
+        <p>Meski harus menjalani hubungan jarak jauh, kami tetap menjaga komunikasi dan saling mendukung. Seiring berjalannya waktu, kami semakin yakin akan tujuan yang sama</p>
+      </div>
+      <div class="t-item">
+        <span class="t-year">“A Sacred Promise”</span>
+        <h4>Melangkah ke Pertunangan</h4>
+        <p>Dengan keyakinan yang semakin kuat, dan restu dari kedua keluarga. Kami mengikat sebuah janji dalam pertunangan</p>
+      </div>
+      <div class="t-item">
+        <span class="t-year">“Our Forever Begins”</span>
+        <h4>Melangkah ke Pelaminan</h4>
+        <p>Kini, dengan niat yang sama dan doa yang menyertai, kami memilih untuk menyempurnakan kisah ini dalam ikatan suci pernikahan. Sebuah awal baru untuk berbagi hidup, bertumbuh, dan menua bersama, seraya berharap setiap langkah kami senantiasa berada dalam ridha-Nya.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENT ============ -->
+  <section id="event" class="reveal">
+    <h1 class="wedding-event-title">Wedding<br>Event</h1>
+    <span class="eyebrow">Save The Date</span>
+
+    <p class="countdown-title">Menuju Ngunduh Mantu</p>
+    <div class="countdown" id="countdown">
+      <div class="cd-box"><span class="cd-num" id="cd-d">00</span><span class="cd-label">Hari</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Jam</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Menit</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Detik</span></div>
+    </div>
+
+    <div class="event-cards">
+      <div class="event-card">
+        <div class="ev-name">Akad Nikah & Resepsi</div>
+        <div class="ev-date">Minggu, 26 Juli 2026</div>
+        <div class="ev-time">08.00 WIB — Selesai</div>
+        <div class="ev-place">Tempat Mempelai Wanita<br>Hotel Aksi Natural Resort, Bangka</div>
+        <a class="btn-line" href="https://maps.app.goo.gl/Lh8CuYeq6589gjBj7?g_st=aw" target="_blank" rel="noopener">Lihat Lokasi</a>
+      </div>
+      <div class="event-card">
+        <div class="ev-name">Ngunduh Mantu</div>
+        <div class="ev-date">Sabtu, 01 Agustus 2026</div>
+        <div class="ev-time">12.00 WIB - Selesai</div>
+        <div class="ev-place">Tempat Mempelai Pria<br>Perumahan Graha Permata Sidorejo Indah Blok P/23, Sidoarjo.</div>
+        <a class="btn-line" href="https://maps.app.goo.gl/WRnuii8KSESEb6EW9?g_st=aw" target="_blank" rel="noopener">Lihat Lokasi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section id="gallery" class="reveal">
+    <span class="eyebrow" style="text-align:center; display:block;">Galeri</span>
+    <h2 class="title-fx">Our Moments</h2>
+    <p class="gallery-caption">I would rather share one lifetime with you than face all the ages of this world alone.</p>
+    <div class="gallery-carousel" id="galleryCarousel">
+      <div class="gc-main">
+        <button class="gc-arrow gc-prev" id="gcPrev" aria-label="Sebelumnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="gc-track" id="gcTrack"></div>
+        <button class="gc-arrow gc-next" id="gcNext" aria-label="Berikutnya">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="gc-scroll-hint"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></div>
+      </div>
+      <div class="gc-thumbs" id="gcThumbs"></div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO, LIVE STREAMING & PHOTOBOOTH ============ -->
+  <section id="livestream-photobooth" class="reveal">
+    <div class="lp-block">
+      <h2 class="title-fx">Live Streaming</h2>
+      <p class="lead">Kami mengajak anda yang tidak dapat hadir langsung untuk bergabung pada momen akad nikah kami melalui siaran langsung secara live virtual di platform berikut:</p>
+      <div class="info-card">
+        <div>
+          <div class="info-label"><span class="live-dot"></span>Live di Instagram</div>
+          <div class="info-value">@ssmadnia14</div>
+        </div>
+        <a class="btn-pill" href="https://instagram.com/ssmadnia14" target="_blank" rel="noopener">Buka</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="lightboxClose" class="lightbox-close" aria-label="Tutup">&times;</button>
+    <button id="lightboxPrev" class="lightbox-nav lightbox-prev" aria-label="Sebelumnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button id="lightboxNext" class="lightbox-nav lightbox-next" aria-label="Selanjutnya">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="lightbox-content" id="lightboxContent"></div>
+  </div>
+
+  <!-- ============ GIFT ============ -->
+  <section id="gift" class="reveal">
+    <div class="gift-card">
+      <span class="eyebrow">Tanda Kasih</span>
+      <div class="gift-divider">
+        <span></span>
+        <svg viewBox="0 0 24 24"><path d="M12 21s-6.72-4.35-9.33-8.1C1.02 10.1 1.6 6.7 4.6 5.1c2.2-1.15 4.6-.4 6 1.2l1.4 1.6 1.4-1.6c1.4-1.6 3.8-2.35 6-1.2 3 1.6 3.58 5 1.73 7.9C18.72 16.65 12 21 12 21z"/></svg>
+        <span></span>
+      </div>
+      <h2 class="gift-title title-fx">Wedding Gift</h2>
+      <p class="lead">Doa dan restu anda adalah hadiah terbaik bagi kami. Namun jika memberi adalah tanda kasih anda, anda dapat mengirimkannya melalui:</p>
+      <button class="gift-show-btn" id="giftShowBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 12v10H4V12M2 7h20v5H2V7zm10 0V5a2.5 2.5 0 0 0-5 0v2m5 0V5a2.5 2.5 0 0 1 5 0v2m-5 0v13"/></svg>
+        <span class="gift-btn-label-open">Show Gift</span>
+        <span class="gift-btn-label-close">Tutup</span>
+      </button>
+      <div class="gift-details" id="giftDetails">
+        <div class="bank-card">
+          <div class="bank-info">
+            <div class="bank-logo"><img src="photos/BRI.png" alt="Bank BRI" loading="lazy"></div>
+            <div class="bank-text">
+              <div class="bank-name">Bank BRI</div>
+              <div class="bank-num">154901026468504</div>
+              <div class="bank-holder">Sismadinia</div>
+            </div>
+          </div>
+          <button class="copy-btn" data-num="154901026468504">Salin</button>
+        </div>
+        <div class="bank-card">
+          <div class="bank-info">
+            <div class="bank-logo"><img src="photos/Mandiri.png" alt="Bank Mandiri" loading="lazy"></div>
+            <div class="bank-text">
+              <div class="bank-name">Bank Mandiri</div>
+              <div class="bank-num">1410016933558</div>
+              <div class="bank-holder">Dimas Alfian Wahyudi</div>
+            </div>
+          </div>
+          <button class="copy-btn" data-num="1410016933558">Salin</button>
+        </div>
+        <div class="gift-address-card">
+          <div class="bank-name">Kirim Kado</div>
+          <div class="gift-address-text">Perumahan Maharani Village Blok B6, Cigugur Girang, Parongpong, Kab. Bandung Barat</div>
+          <button class="copy-btn" data-text="Perumahan Maharani Village Blok B6, Cigugur Girang, Parongpong, Kab. Bandung Barat">Salin</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section id="rsvp" class="reveal">
+    <span class="eyebrow" style="text-align:center; display:block;">RSVP</span>
+    <h2 class="title-fx">Konfirmasi Kehadiran</h2>
+    <p class="lead">Mohon konfirmasi kehadiran Anda untuk melengkapi persiapan kami.</p>
+    <div class="rsvp-card">
+    <form id="rsvpForm">
+      <div class="field">
+        <label for="rName">Nama</label>
+        <input id="rName" name="name" type="text" required maxlength="60" placeholder="Nama Anda">
+      </div>
+      <div class="field">
+        <label for="rAttend">Konfirmasi Kehadiran</label>
+        <select id="rAttend" name="attendance" required>
+          <option value="hadir">Saya akan hadir</option>
+          <option value="tidak">Tidak Bisa Hadir</option>
+          <option value="ragu">Masih Ragu</option>
+        </select>
+      </div>
+      <div class="field" id="rCountField">
+        <label for="rCount">Jumlah Tamu Hadir</label>
+        <input id="rCount" name="guestCount" type="number" min="1" max="10" value="1">
+      </div>
+      <button class="submit-btn" type="submit" id="rSubmit">Kirim Konfirmasi</button>
+      <div id="rsvpStatus" class="form-status"></div>
+    </form>
+    </div>
+  </section>
+
+  <!-- ============ UCAPAN & DOA ============ -->
+  <section id="wishes" class="reveal">
+    <h2 class="title-fx">Ucapan &amp; Doa</h2>
+    <p class="lead">Sampaikan doa dan ucapan terbaik untuk kami di sini.</p>
+    <div class="rsvp-card">
+    <form id="wishForm">
+      <div class="field">
+        <label for="wName">Nama</label>
+        <input id="wName" name="name" type="text" required maxlength="60" placeholder="Nama Anda">
+      </div>
+      <div class="field">
+        <label for="wMsg">Doa &amp; Ucapan</label>
+        <textarea id="wMsg" name="message" required maxlength="500" placeholder="Tuliskan doa dan ucapan terbaik Anda..."></textarea>
+      </div>
+      <button class="submit-btn" type="submit" id="wSubmit">Kirim</button>
+      <div id="wishStatus" class="form-status"></div>
+    </form>
+    </div>
+
+    <div class="wish-list" id="wishList">
+      <div class="wish-empty">Memuat ucapan...</div>
+    </div>
+
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section id="closing">
+    <p class="closing-note">Menjadi sebuah kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dalam hari bahagia kami. Terima kasih atas segala ucapan, doa, dan perhatian yang diberikan.</p>
+    <div class="closing-photo">
+      <img src="/photos/foto11.JPG" alt="Dimas & Nia">
+    </div>
+    <h2>See You On<br>Our Big Day!</h2>
+    <div class="signature">Dimas &amp; Nia</div>
+    <div class="made-with"><span class="made-with-line">Made with <svg class="made-with-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.72-4.35-9.33-8.1C1.02 10.1 1.6 6.7 4.6 5.1c2.2-1.15 4.6-.4 6 1.2l1.4 1.6 1.4-1.6c1.4-1.6 3.8-2.35 6-1.2 3 1.6 3.58 5 1.73 7.9C18.72 16.65 12 21 12 21z"/></svg> by Dimas &amp; Nia</span></div>
+  </section>
+
+  <footer>&copy; 2026. Dimas &amp; Nia Wedding</footer>
+</div>
+
+
+<script>
+(function(){
+  // ---- Guest name from ?to= ----
+  // Jika ?to= berupa kode tamu (mis. 001, 002), ambil nama dari /api/guest/:code.
+  // Jika bukan berupa kode (mis. ?to=Budi+Santoso langsung), tampilkan apa adanya (mode tanpa database).
+
+
+  const params = new URLSearchParams(location.search);
+  const to = params.get('to');
+  const guestEl = document.getElementById('guestName');
+  if (to) {
+    const looksLikeCode = /^[A-Za-z0-9_-]{1,12}$/.test(to) && !to.includes(' ');
+    if (looksLikeCode) {
+      fetch('/api/guest/' + encodeURIComponent(to))
+        .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, data })))
+        .then(({ ok, status, data }) => {
+          if (ok && data.name) {
+            guestEl.textContent = data.name;
+          } else {
+            guestEl.textContent = '[ERROR ' + status + ': ' + (data.error || JSON.stringify(data)) + ']';
+          }
+        })
+        .catch(err => { guestEl.textContent = '[FETCH ERROR: ' + err.message + ']'; });
+    } else {
+      guestEl.textContent = decodeURIComponent(to.replace(/\+/g, ' '));
+    }
+  }
+
+  // ---- Music ----
+  const music = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicToggle');
+  let musicReady = null; // Promise yang resolve setelah src musik diisi dari /api/music
+
+  async function loadMusic(){
+    if (musicReady) return musicReady;
+    musicReady = fetch('/api/music')
+      .then(res => res.ok ? res.json() : { url: null })
+      .then(data => { if (data.url) music.src = data.url; return data.url; })
+      .catch(() => null);
+    return musicReady;
+  }
+
+  // Status play/pause selalu dibaca LANGSUNG dari elemen <audio>, tidak pakai
+  // variabel terpisah — supaya tidak pernah "salah ingat" statusnya sendiri.
+  function syncMusicUI(){
+    musicBtn.classList.toggle('spin', !music.paused && !music.ended);
+  }
+  music.addEventListener('play', syncMusicUI);
+  music.addEventListener('pause', syncMusicUI);
+  music.addEventListener('ended', syncMusicUI);
+
+  async function playMusic(){
+    const url = await loadMusic();
+    if (!url) return false; // belum ada file lagu di folder /music
+    try {
+      await music.play();
+      return true;
+    } catch (err) {
+      return false; // diblokir kebijakan autoplay browser, akan dicoba lagi saat ada gesture berikutnya
+    }
+  }
+
+  // Preferensi mute disimpan per-undangan (localStorage), supaya kalau tamu
+  // sengaja mematikan musik lalu reload/scroll ulang, musik tidak otomatis nyala lagi.
+  const MUSIC_PREF_KEY = 'musik_muted_' + (window.location.pathname.split('/').filter(Boolean)[0] || 'default');
+  function isMusicMutedByUser(){
+    try { return localStorage.getItem(MUSIC_PREF_KEY) === '1'; } catch(e){ return false; }
+  }
+  function setMusicMutedByUser(muted){
+    try { localStorage.setItem(MUSIC_PREF_KEY, muted ? '1' : '0'); } catch(e){}
+  }
+
+  async function toggleMusic(){
+    if (!music.paused){ music.pause(); setMusicMutedByUser(true); return; }
+    const ok = await playMusic();
+    if (ok) setMusicMutedByUser(false);
+  }
+  musicBtn.addEventListener('click', toggleMusic);
+  loadMusic();
+
+  // Coba autoplay langsung saat halaman siap, KECUALI tamu sebelumnya sudah memilih mute manual
+  if (!isMusicMutedByUser()) playMusic();
+
+  // Fallback: browser modern butuh "gesture" pengguna sebelum audio boleh play,
+  // jadi begitu ada sentuhan/klik pertama di mana saja, musik langsung dicoba jalan.
+  function tryAutoplayOnFirstGesture(){
+    if (music.paused && !isMusicMutedByUser()) playMusic();
+    document.removeEventListener('click', tryAutoplayOnFirstGesture);
+    document.removeEventListener('touchstart', tryAutoplayOnFirstGesture);
+  }
+  document.addEventListener('click', tryAutoplayOnFirstGesture, { once:true, passive:true });
+  document.addEventListener('touchstart', tryAutoplayOnFirstGesture, { once:true, passive:true });
+
+  // ---- Musik mati otomatis saat pindah tab / minimize / keluar dari web ----
+  let musicWasPlayingBeforeHidden = false;
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){
+      if (!music.paused){
+        musicWasPlayingBeforeHidden = true;
+        music.pause();
+      }
+    } else {
+      if (musicWasPlayingBeforeHidden){
+        musicWasPlayingBeforeHidden = false;
+        if (!isMusicMutedByUser()) playMusic();
+      }
+    }
+  });
+  window.addEventListener('pagehide', function(){ music.pause(); });
+
+  // ---- Cover open ----
+  document.getElementById('openBtn').addEventListener('click', function(){
+    const btn = this;
+    if (btn.classList.contains('pressed')) return;
+    btn.classList.add('pressed');
+    setTimeout(function(){
+      document.getElementById('cover').classList.add('opened');
+      document.body.style.overflow = 'auto';
+      if (music.paused) playMusic();
+      // Tampilkan tombol musik hanya SETELAH undangan dibuka
+      musicBtn.classList.add('visible');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ musicBtn.classList.add('show-in'); });
+      });
+    }, 350);
+  });
+  document.body.style.overflow = 'hidden';
+  window.scrollTo(0, 0);
+
+  // ---- Loading screen: preload aset penting sebelum cover ditampilkan ----
+  (function(){
+    const assets = [
+      '/photos/coverdepan.jpeg',
+      '/photos/dimas.jpg',
+      '/photos/nia.jpg',
+      '/photos/bg-livestream.jpg',
+      '/photos/bg-gift-floral.png',
+      '/photos/rsvp.jpg',
+      'https://i.ytimg.com/vi/gIrDLOLmKq4/hqdefault.jpg'
+    ];
+    const loadingScreen = document.getElementById('loadingScreen');
+    const lsPercent = document.getElementById('lsPercent');
+    const lsBarFill = document.getElementById('lsBarFill');
+    let loaded = 0;
+    const total = assets.length;
+
+    function updateProgress(){
+      loaded++;
+      const pct = Math.min(100, Math.round((loaded / total) * 100));
+      lsPercent.textContent = pct + '%';
+      lsBarFill.style.width = pct + '%';
+    }
+
+    function finishLoading(){
+      lsPercent.textContent = '100%';
+      lsBarFill.style.width = '100%';
+      setTimeout(function(){
+        loadingScreen.classList.add('hidden');
+      }, 250);
+    }
+
+    if (total === 0){
+      finishLoading();
+    } else {
+      let doneCount = 0;
+      assets.forEach(function(src){
+        const img = new Image();
+        const settle = function(){
+          updateProgress();
+          doneCount++;
+          if (doneCount === total) finishLoading();
+        };
+        img.onload = settle;
+        img.onerror = settle;
+        img.src = src;
+      });
+      // Fallback: jangan sampai loading screen macet jika ada aset yang gagal/lambat
+      setTimeout(finishLoading, 7000);
+    }
+  })();
+
+  // ---- Reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if (e.isIntersecting) e.target.classList.add('show');
+      else e.target.classList.remove('show');
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=>io.observe(el));
+  // Safety net: force-show any reveal section that's already near/in view but wasn't caught in time
+  // (covers hash-jump loads, slow devices, or observers set up after first paint).
+  function forceShowIfNear(){
+    revealEls.forEach(el=>{
+      if (el.classList.contains('show')) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 1.15 && r.bottom > -200) el.classList.add('show');
+    });
+  }
+  window.addEventListener('load', forceShowIfNear, { once:true });
+  setTimeout(forceShowIfNear, 1200); // fallback tunggal, cukup sekali (baris 4000ms lama dihapus - redundan)
+
+  // ---- Fly-in per teks (granular, "kejutan" satu-satu saat discroll) ----
+  (function(){
+    // Kumpulan selector teks yang ingin dianimasikan satu-satu.
+    // Sengaja tidak menyentuh elemen yang sudah jadi direct-child dari .reveal
+    // (itu sudah kebagian fly-in dari sistem .reveal di atas) — target di sini
+    // fokus ke teks yang bersarang lebih dalam (di dalam wrapper/card/list).
+    const selectors = [
+      '.couple-ig',
+      '.t-item .t-year, .t-item p',
+      '.countdown-title, .cd-box',
+      '.event-card .ev-name, .event-card .ev-date, .event-card .ev-time, .event-card .ev-place, .event-card .btn-line',
+      '.gallery-caption',
+      '.info-label, .info-value',
+      '.bank-card .bank-name, .bank-card .bank-num, .bank-card .bank-holder',
+      '#rsvp .field, #rsvp .lead',
+      '#wishes .lead'
+    ].join(', ');
+
+    const els = Array.from(document.querySelectorAll(selectors));
+    els.forEach((el, i) => {
+      el.classList.add('fly-text');
+      const siblingsIdx = Array.prototype.indexOf.call(el.parentElement ? el.parentElement.children : [], el);
+      const delay = Math.min(0.5, 0.05 * (siblingsIdx >= 0 ? siblingsIdx : (i % 6)));
+      el.style.transitionDelay = delay + 's';
+    });
+
+    const textIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('show');
+        } else {
+          e.target.classList.remove('show');
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+
+    els.forEach(el => textIO.observe(el));
+
+    function forceShowTextIfNear(){
+      els.forEach(el => {
+        if (el.classList.contains('show')) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 1.15 && r.bottom > -200) el.classList.add('show');
+      });
+    }
+    window.addEventListener('load', forceShowTextIfNear, { once:true });
+    setTimeout(forceShowTextIfNear, 1200);
+  })();
+
+  // ---- Utility: debounce (dipakai untuk resize, BUKAN untuk scroll) ----
+  function debounce(fn, wait){
+    let t;
+    return function(...args){
+      clearTimeout(t);
+      t = setTimeout(()=> fn.apply(this, args), wait);
+    };
+  }
+
+  // ---- FLOW: continuous scroll-driven parallax/fade per section (ppt-slide feel) ----
+  (function(){
+    const flowSections = Array.from(document.querySelectorAll('section'));
+    let ticking = false;
+    let cachedVH = window.innerHeight; // cache innerHeight, dihitung ulang hanya saat resize
+
+    function update(){
+      ticking = false;
+      const vh = cachedVH;
+      const center = vh / 2;
+
+      // Fase 1: BACA semua ukuran/posisi dulu (getBoundingClientRect) sebelum menulis apa pun,
+      // supaya browser tidak dipaksa flush layout berkali-kali di tengah loop (layout thrashing)
+      // yang juga bisa jadi penyebab tersendat/getar saat scroll.
+      const measurements = flowSections.map(sec => {
+        const r = sec.getBoundingClientRect();
+        return r.top + r.height / 2;
+      });
+
+      // Fase 2: baru TULIS semua transform setelah semua pembacaan selesai.
+      flowSections.forEach((sec, i) => {
+        const secCenter = measurements[i];
+        let d = (secCenter - center) / vh;
+        d = Math.max(-1.4, Math.min(1.4, d));
+
+        const absD = Math.abs(d);
+        const scale = 1 - Math.min(absD, 1) * 0.06;
+        // translateY dihapus: itu yang bikin antar-section kelihatan renggang/berjarak
+        // saat discroll (section di atas & bawah titik tengah bergerak berlawanan arah).
+        // Cukup scale halus saja supaya tetap ada rasa "ppt-slide" tanpa celah.
+        sec.style.transform = `scale(${scale})`;
+      });
+    }
+
+    function onScroll(){
+      if (!ticking){
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    function onResize(){
+      cachedVH = window.innerHeight; // update cache sekali per resize, bukan tiap scroll
+      onScroll();
+    }
+
+    window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', debounce(onResize, 150), { passive:true }); // resize di-debounce 150ms
+    update();
+  })();
+
+  // ---- Countdown ----
+  const target = new Date('2026-07-26T08:00:00+07:00').getTime();
+  function tick(){
+    const now = Date.now();
+    let diff = Math.max(0, target - now);
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000); diff -= h*3600000;
+    const m = Math.floor(diff/60000); diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+
+  // ---- Background foto/video per bagian (opsional) ----
+  // Isi url foto/video di sini kalau mau bagian tersebut punya background sendiri.
+  // type: 'image' atau 'video'. url: taruh file di /photos (foto) atau /videos (video), lalu isi path-nya.
+  // tint: warna overlay transparan di atas background biar teks tetap kebaca (boleh dikosongkan, pakai default).
+  // Contoh isi:
+  //   couple: { type:'image', url:'/photos/bg-mempelai.jpg' },
+  //   hero:   { type:'video', url:'/videos/bg-hero.mp4', tint:'rgba(43,26,26,0.55)' },
+  const SECTION_BACKGROUNDS = {
+    // hero:       { type:'image', url:'' },
+    welcome:{
+        type:"video",
+        url:"/videos/bg-welcome.mp4",
+        tint:"rgba(20,10,10,.35)"
+    },
+    // couple:     { type:'image', url:'' },
+    // story:      { type:'image', url:'' },
+    // event:      { type:'image', url:'' },
+    // gallery:    { type:'image', url:'' },
+    // video:      { type:'image', url:'' },
+    // livestream: { type:'image', url:'' },
+    // gift:       { type:'image', url:'' },
+    // rsvp:       { type:'image', url:'' },
+    // closing:    { type:'image', url:'' },
+  };
+  function applySectionBackgrounds(){
+    Object.keys(SECTION_BACKGROUNDS).forEach(function(id){
+      const cfg = SECTION_BACKGROUNDS[id];
+      if (!cfg || !cfg.url) return;
+      const section = document.getElementById(id);
+      if (!section) return;
+      const bg = document.createElement('div');
+      bg.className = 'section-bg';
+      if (cfg.tint) bg.style.setProperty('--section-bg-tint', cfg.tint);
+      if (cfg.type === 'video'){
+        bg.innerHTML = '<video src="' + cfg.url + '" autoplay muted loop playsinline></video>';
+      } else {
+        bg.innerHTML = '<img src="' + cfg.url + '" alt="">';
+      }
+      section.insertBefore(bg, section.firstChild);
+      section.classList.add('has-bg');
+      if(id==="welcome"){
+    section.style.background="none";
+      }
+    });
+  }
+  applySectionBackgrounds();
+
+  // ---- Gallery: MANUAL — atur sendiri foto/video mana saja yang tampil & urutannya ----
+  // Cukup isi nama file yang ada di folder /photos (tanpa path), urut sesuai keinginan.
+  // Contoh: 'lamaran.jpg', 'prewedding-1.jpg', 'video-proposal.mp4'
+  const GALLERY_FILES = [
+    'foto1.JPG',
+    'foto2.JPG',
+    'foto3.JPG',
+    'foto4.JPG',
+    'foto5.JPG',
+    'foto6.JPG',
+    'foto7.JPG',
+    'foto8.JPG',
+    'foto9.JPG',
+    'foto10.JPG',
+    'foto11.JPG',
+    'foto12.JPG',
+    'foto13.jpg',
+    'foto14.jpg',
+    // tambahkan nama file lain di sini, satu per baris, sesuai urutan tampil yang diinginkan
+  ];
+  const GALLERY_VIDEO_EXTS = ['mp4', 'webm', 'mov'];
+
+  function galleryItemFromFilename(name){
+    const ext = (name.split('.').pop() || '').toLowerCase();
+    return {
+      type: GALLERY_VIDEO_EXTS.includes(ext) ? 'video' : 'image',
+      url: '/photos/' + encodeURIComponent(name)
+    };
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxContent = document.getElementById('lightboxContent');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+
+  let galleryItems = [];
+  let currentLightboxIndex = 0;
+  let isSingleMode = false;
+
+  function renderLightbox(index){
+    if (!galleryItems.length) return;
+    currentLightboxIndex = (index + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[currentLightboxIndex];
+    lightboxContent.innerHTML = item.type === 'video'
+      ? `<video src="${item.url}" controls autoplay playsinline></video>`
+      : `<img src="${item.url}" alt="">`;
+    resetZoom();
+  }
+  function openLightbox(index){
+    isSingleMode = false;
+    renderLightbox(index);
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    if (typeof stopGcAutoplay === 'function') stopGcAutoplay();
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxContent.innerHTML = '';
+    lightboxPrev.style.display = '';
+    lightboxNext.style.display = '';
+    isSingleMode = false;
+    resetZoom();
+    if (typeof startGcAutoplay === 'function') startGcAutoplay();
+  }
+  function showPrev(){ if (isSingleMode) return; renderLightbox(currentLightboxIndex - 1); }
+  function showNext(){ if (isSingleMode) return; renderLightbox(currentLightboxIndex + 1); }
+
+  // Lightbox untuk foto tunggal (mis. foto mempelai di section Bride and Groom):
+  // pakai lightbox yang sama tapi tombol prev/next & swipe/geser dimatikan total,
+  // jadi foto ini murni cuma bisa di-zoom, tidak nyambung/geser ke foto gallery.
+  function openSingleImageLightbox(url, alt){
+    isSingleMode = true;
+    lightboxContent.innerHTML = `<img src="${url}" alt="${alt || ''}">`;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    lightboxPrev.style.display = 'none';
+    lightboxNext.style.display = 'none';
+    resetZoom();
+  }
+  [['couplePhotoDimas'], ['couplePhotoNia']].forEach(([id]) => {
+    const img = document.getElementById(id);
+    if (img) img.addEventListener('click', () => openSingleImageLightbox(img.currentSrc || img.src, img.alt));
+  });
+
+  // ---- Zoom & pan untuk gambar di dalam lightbox (pinch, double-click/double-tap, scroll, drag) ----
+  (function(){
+    const MIN_SCALE = 1, MAX_SCALE = 4;
+    let scale = 1, panX = 0, panY = 0;
+    let isDragging = false, dragStartX = 0, dragStartY = 0, panStartX = 0, panStartY = 0;
+    let lastTapTime = 0;
+    let activeTouches = 0;
+    let prevDist = 0, prevMidX = 0, prevMidY = 0;
+
+    function initPinch(t1, t2){
+      prevDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+      prevMidX = (t1.clientX + t2.clientX) / 2;
+      prevMidY = (t1.clientY + t2.clientY) / 2;
+      isDragging = false;
+    }
+    function initSingleDrag(t){
+      isDragging = true;
+      dragStartX = t.clientX; dragStartY = t.clientY;
+      panStartX = panX; panStartY = panY;
+    }
+
+    function currentImg(){
+      const img = lightboxContent.querySelector('img');
+      return img || null;
+    }
+    function applyTransform(){
+      const img = currentImg();
+      if (!img) return;
+      img.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      img.classList.toggle('is-zoomed', scale > 1.01);
+    }
+    window.resetZoom = function(){
+      scale = 1; panX = 0; panY = 0;
+      isDragging = false; prevDist = 0; activeTouches = 0;
+      const img = currentImg();
+      if (img){ img.style.transform = ''; img.classList.remove('is-zoomed','is-dragging'); }
+    };
+    function clampPan(){
+      const img = currentImg();
+      if (!img) return;
+      const rect = img.getBoundingClientRect();
+      const contentRect = lightboxContent.getBoundingClientRect();
+      const overW = Math.max(0, (rect.width - contentRect.width) / 2);
+      const overH = Math.max(0, (rect.height - contentRect.height) / 2);
+      panX = Math.max(-overW, Math.min(overW, panX));
+      panY = Math.max(-overH, Math.min(overH, panY));
+    }
+    function setZoomAt(newScale, clientX, clientY){
+      const img = currentImg();
+      if (!img) return;
+      newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, newScale));
+      if (newScale === 1){ resetZoom(); applyTransform(); return; }
+      const rect = img.getBoundingClientRect();
+      const offsetX = clientX - (rect.left + rect.width/2);
+      const offsetY = clientY - (rect.top + rect.height/2);
+      const ratio = newScale / scale;
+      panX = panX * ratio - offsetX * (ratio - 1);
+      panY = panY * ratio - offsetY * (ratio - 1);
+      scale = newScale;
+      clampPan();
+      applyTransform();
+    }
+
+    // Double-click (desktop) & double-tap (mobile) untuk toggle zoom in/out
+    lightboxContent.addEventListener('dblclick', e => {
+      if (e.target.tagName !== 'IMG') return;
+      e.preventDefault();
+      if (scale > 1.01) { resetZoom(); applyTransform(); }
+      else setZoomAt(2.4, e.clientX, e.clientY);
+    });
+    lightboxContent.addEventListener('touchend', e => {
+      if (e.target.tagName !== 'IMG') return;
+      const now = Date.now();
+      if (now - lastTapTime < 300 && e.changedTouches.length === 1){
+        const t = e.changedTouches[0];
+        if (scale > 1.01) { resetZoom(); applyTransform(); }
+        else setZoomAt(2.4, t.clientX, t.clientY);
+      }
+      lastTapTime = now;
+    });
+
+    // Scroll wheel zoom (desktop)
+    lightboxContent.addEventListener('wheel', e => {
+      if (e.target.tagName !== 'IMG') return;
+      e.preventDefault();
+      const delta = -e.deltaY * 0.0025;
+      setZoomAt(scale + delta, e.clientX, e.clientY);
+    }, { passive:false });
+
+    // Pinch-to-zoom (mobile)
+    lightboxContent.addEventListener('touchstart', e => {
+      if (e.target.tagName !== 'IMG') return;
+      if (e.touches.length === 2){
+        initPinch(e.touches[0], e.touches[1]);
+      } else if (e.touches.length === 1 && scale > 1.01){
+        initSingleDrag(e.touches[0]);
+      }
+      activeTouches = e.touches.length;
+    }, { passive:true });
+    lightboxContent.addEventListener('touchmove', e => {
+      if (e.target.tagName !== 'IMG' && !isDragging) return;
+      // Jumlah jari berubah di tengah gesture (mis. pinch 2 jari -> angkat 1 jari untuk geser,
+      // atau sebaliknya). touchstart tidak terpanggil lagi untuk jari yang masih menempel,
+      // jadi baseline-nya harus disegarkan di sini supaya lanjut mulus tanpa "lompat".
+      if (e.touches.length !== activeTouches){
+        if (e.touches.length === 2){
+          initPinch(e.touches[0], e.touches[1]);
+        } else if (e.touches.length === 1 && scale > 1.01){
+          initSingleDrag(e.touches[0]);
+        } else {
+          isDragging = false;
+        }
+        activeTouches = e.touches.length;
+        e.preventDefault();
+        return;
+      }
+      if (e.touches.length === 2 && prevDist > 0){
+        e.preventDefault();
+        const [t1, t2] = e.touches;
+        const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+        const midX = (t1.clientX + t2.clientX) / 2, midY = (t1.clientY + t2.clientY) / 2;
+        const img = currentImg();
+        if (img){
+          const newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * (dist / prevDist)));
+          const rect = img.getBoundingClientRect();
+          const offsetX = prevMidX - (rect.left + rect.width / 2);
+          const offsetY = prevMidY - (rect.top + rect.height / 2);
+          const ratio = newScale / scale;
+          // anchor zoom di titik tengah 2 jari sebelumnya, lalu tambahkan pergeseran titik tengah
+          // (delta midpoint) supaya menggeser gambar sambil pinch juga ikut kebaca, bukan cuma skalanya.
+          panX = panX * ratio - offsetX * (ratio - 1) + (midX - prevMidX);
+          panY = panY * ratio - offsetY * (ratio - 1) + (midY - prevMidY);
+          scale = newScale;
+          clampPan();
+          applyTransform();
+        }
+        prevDist = dist; prevMidX = midX; prevMidY = midY;
+      } else if (isDragging && e.touches.length === 1){
+        e.preventDefault();
+        panX = panStartX + (e.touches[0].clientX - dragStartX);
+        panY = panStartY + (e.touches[0].clientY - dragStartY);
+        clampPan();
+        applyTransform();
+      }
+    }, { passive:false });
+    lightboxContent.addEventListener('touchend', e => {
+      activeTouches = e.touches.length;
+      if (e.touches.length === 1 && scale > 1.01){
+        // masih ada 1 jari tersisa & sedang zoom -> lanjutkan geser tanpa lompat
+        initSingleDrag(e.touches[0]);
+      } else if (e.touches.length === 0){
+        isDragging = false;
+        prevDist = 0;
+      } else {
+        prevDist = 0;
+      }
+    }, { passive:true });
+
+    // Drag pan pakai mouse (desktop) saat sudah zoom
+    lightboxContent.addEventListener('mousedown', e => {
+      if (e.target.tagName !== 'IMG' || scale <= 1.01) return;
+      isDragging = true;
+      dragStartX = e.clientX; dragStartY = e.clientY;
+      panStartX = panX; panStartY = panY;
+      e.target.classList.add('is-dragging');
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      panX = panStartX + (e.clientX - dragStartX);
+      panY = panStartY + (e.clientY - dragStartY);
+      clampPan();
+      applyTransform();
+    });
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+      const img = currentImg();
+      if (img) img.classList.remove('is-dragging');
+    });
+  })();
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  lightboxPrev.addEventListener('click', e => { e.stopPropagation(); showPrev(); });
+  lightboxNext.addEventListener('click', e => { e.stopPropagation(); showNext(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') showPrev();
+    else if (e.key === 'ArrowRight') showNext();
+    else if (e.key === 'Escape') closeLightbox();
+  });
+
+  // touch swipe support
+  let touchStartX = 0, touchStartY = 0;
+  lightbox.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+  }, { passive:true });
+  lightbox.addEventListener('touchend', e => {
+    if (isSingleMode) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){
+      if (dx < 0) showNext(); else showPrev();
+    }
+  }, { passive:true });
+
+  const gcTrack = document.getElementById('gcTrack');
+  const gcThumbs = document.getElementById('gcThumbs');
+  const gcPrev = document.getElementById('gcPrev');
+  const gcNext = document.getElementById('gcNext');
+  let gcCurrent = 0;
+  let gcAutoplayTimer = null;
+  const GC_AUTOPLAY_MS = 3500;
+
+  function buildCarouselSlide(item, index){
+    const div = document.createElement('div');
+    div.className = 'gc-slide';
+    if (item.type === 'video'){
+      div.innerHTML = `<video src="${item.url}" muted playsinline preload="metadata"></video><div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>`;
+    } else {
+      div.innerHTML = `<img src="${item.url}" alt="" loading="lazy" decoding="async">`;
+    }
+    div.addEventListener('click', () => openLightbox(index));
+    return div;
+  }
+  function buildCarouselThumb(item, index){
+    const div = document.createElement('div');
+    div.className = 'gc-thumb';
+    if (item.type === 'video'){
+      div.innerHTML = `<video src="${item.url}" muted playsinline preload="metadata"></video><div class="play-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>`;
+    } else {
+      div.innerHTML = `<img src="${item.url}" alt="" loading="lazy" decoding="async">`;
+    }
+    div.addEventListener('click', () => goToSlide(index));
+    return div;
+  }
+  function goToSlide(index){
+    if (!galleryItems.length) return;
+    gcCurrent = (index + galleryItems.length) % galleryItems.length;
+    const slideWidth = gcTrack.clientWidth;
+    gcTrack.scrollTo({ left: gcCurrent * slideWidth, behavior:'smooth' });
+    updateActiveThumb();
+  }
+  function updateActiveThumb(){
+    gcThumbs.querySelectorAll('.gc-thumb').forEach((el, i) => el.classList.toggle('active', i === gcCurrent));
+    const activeThumb = gcThumbs.children[gcCurrent];
+    if (activeThumb){
+      // geser hanya strip thumbnail secara horizontal (scrollTo pada elemen itu sendiri),
+      // JANGAN pakai scrollIntoView karena itu bisa ikut menggeser halaman secara vertikal.
+      const target = activeThumb.offsetLeft - (gcThumbs.clientWidth - activeThumb.clientWidth) / 2;
+      gcThumbs.scrollTo({ left: target, behavior:'smooth' });
+    }
+  }
+  let gcVisible = false;
+  function startGcAutoplay(){
+    stopGcAutoplay();
+    if (!gcVisible || galleryItems.length < 2) return;
+    gcAutoplayTimer = setInterval(() => goToSlide(gcCurrent + 1), GC_AUTOPLAY_MS);
+  }
+  function stopGcAutoplay(){
+    if (gcAutoplayTimer){ clearInterval(gcAutoplayTimer); gcAutoplayTimer = null; }
+  }
+  function restartGcAutoplayLater(){
+    stopGcAutoplay();
+    startGcAutoplay();
+  }
+  let gcScrollDebounce = null;
+  gcTrack.addEventListener('scroll', () => {
+    clearTimeout(gcScrollDebounce);
+    gcScrollDebounce = setTimeout(() => {
+      const slideWidth = gcTrack.clientWidth || 1;
+      gcCurrent = Math.round(gcTrack.scrollLeft / slideWidth);
+      updateActiveThumb();
+    }, 100);
+  }, { passive:true });
+  gcPrev.addEventListener('click', () => { goToSlide(gcCurrent - 1); restartGcAutoplayLater(); });
+  gcNext.addEventListener('click', () => { goToSlide(gcCurrent + 1); restartGcAutoplayLater(); });
+  ['touchstart','mousedown'].forEach(evt => gcTrack.addEventListener(evt, stopGcAutoplay, { passive:true }));
+  ['touchend','mouseup'].forEach(evt => gcTrack.addEventListener(evt, restartGcAutoplayLater, { passive:true }));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopGcAutoplay(); else if (gcVisible) startGcAutoplay(); });
+
+  // Autoplay HANYA aktif kalau section galeri sedang benar-benar terlihat di layar.
+  // Ini mencegah carousel "menarik" halaman turun ke galeri saat baru buka undangan.
+  const gcSection = document.getElementById('gallery');
+  if (gcSection && 'IntersectionObserver' in window){
+    const gcSectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        gcVisible = entry.isIntersecting;
+        if (gcVisible) startGcAutoplay(); else stopGcAutoplay();
+      });
+    }, { threshold: 0.5 });
+    gcSectionObserver.observe(gcSection);
+  } else {
+    // fallback kalau IntersectionObserver tidak tersedia
+    gcVisible = true;
+  }
+
+  function loadGallery(){
+    galleryItems = GALLERY_FILES.map(galleryItemFromFilename);
+    gcTrack.innerHTML = '';
+    gcThumbs.innerHTML = '';
+    if (galleryItems.length === 0){
+      gcTrack.innerHTML = '<div class="gc-slide"><span style="font-size:.7rem; opacity:.6; padding:8px; text-align:center; display:block;">Belum ada foto. Tambahkan nama file ke daftar GALLERY_FILES di kode.</span></div>';
+      return;
+    }
+    galleryItems.forEach((item, idx) => {
+      gcTrack.appendChild(buildCarouselSlide(item, idx));
+      gcThumbs.appendChild(buildCarouselThumb(item, idx));
+    });
+    updateActiveThumb();
+  }
+  loadGallery();
+  window.addEventListener('resize', () => goToSlide(gcCurrent));
+
+  // ---- Gift: tombol "Show Gift" untuk buka/tutup detail rekening & alamat ----
+  (function(){
+    const btn = document.getElementById('giftShowBtn');
+    const details = document.getElementById('giftDetails');
+    if (!btn || !details) return;
+    btn.addEventListener('click', function(){
+      const isOpen = details.classList.toggle('is-open');
+      btn.classList.toggle('is-open', isOpen);
+    });
+  })();
+
+  // ---- Copy bank number / address ----
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      const text = btn.dataset.text || btn.dataset.num;
+      navigator.clipboard.writeText(text).then(()=>{
+        btn.textContent = 'Tersalin!';
+        btn.classList.add('copied');
+        setTimeout(()=>{ btn.textContent='Salin'; btn.classList.remove('copied'); }, 1800);
+      });
+    });
+  });
+
+  // ---- RSVP form: nama, konfirmasi kehadiran, jumlah tamu ----
+  const rsvpForm = document.getElementById('rsvpForm');
+  const rsvpStatus = document.getElementById('rsvpStatus');
+  const rSubmit = document.getElementById('rSubmit');
+
+  const rAttendEl = document.getElementById('rAttend');
+  const rCountField = document.getElementById('rCountField');
+  function syncCountField(){
+    rCountField.style.display = rAttendEl.value === 'hadir' ? '' : 'none';
+  }
+  rAttendEl.addEventListener('change', syncCountField);
+  syncCountField();
+
+  rsvpForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    rSubmit.disabled = true;
+    rsvpStatus.className = 'form-status';
+    rsvpStatus.textContent = 'Mengirim...';
+
+    const payload = {
+      name: document.getElementById('rName').value.trim(),
+      attendance: document.getElementById('rAttend').value,
+      guestCount: document.getElementById('rAttend').value === 'hadir'
+        ? (parseInt(document.getElementById('rCount').value, 10) || 1)
+        : undefined,
+      message: ''
+    };
+
+    try{
+      const res = await fetch('/api/wishes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('failed');
+      rsvpStatus.className = 'form-status ok';
+      rsvpStatus.textContent = 'Terima kasih atas konfirmasinya!';
+      rsvpForm.reset();
+      syncCountField();
+    }catch(err){
+      rsvpStatus.className = 'form-status err';
+      rsvpStatus.textContent = 'Gagal mengirim. Silakan coba lagi.';
+    }finally{
+      rSubmit.disabled = false;
+    }
+  });
+
+  // ---- Ucapan & Doa: load + submit (nama + pesan saja, tanpa status kehadiran) ----
+  const wishList = document.getElementById('wishList');
+  const wishForm = document.getElementById('wishForm');
+  const wishStatus = document.getElementById('wishStatus');
+  const wishSubmit = document.getElementById('wSubmit');
+
+  function escapeHtml(str){
+    return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function renderWishes(items){
+    const withMessage = (items || []).filter(w => w.message && w.message.trim());
+    if (withMessage.length === 0){
+      wishList.innerHTML = '<div class="wish-empty">Belum ada ucapan. Jadilah yang pertama!</div>';
+      return;
+    }
+    wishList.innerHTML = withMessage.map(w => `
+      <div class="wish-item">
+        <div class="w-name">${escapeHtml(w.name)}</div>
+        <p>${escapeHtml(w.message)}</p>
+      </div>
+    `).join('');
+  }
+
+  async function loadWishes(){
+    try{
+      const res = await fetch('/api/wishes');
+      if (!res.ok) throw new Error('failed');
+      const data = await res.json();
+      renderWishes(data.items);
+    }catch(err){
+      wishList.innerHTML = '<div class="wish-empty">Gagal memuat ucapan.</div>';
+    }
+  }
+  loadWishes();
+
+  wishForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    wishSubmit.disabled = true;
+    wishStatus.className = 'form-status';
+    wishStatus.textContent = 'Mengirim...';
+
+    const payload = {
+      name: document.getElementById('wName').value.trim(),
+      message: document.getElementById('wMsg').value.trim()
+    };
+
+    try{
+      const res = await fetch('/api/wishes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('failed');
+      wishStatus.className = 'form-status ok';
+      wishStatus.textContent = 'Terima kasih atas doa & ucapannya!';
+      wishForm.reset();
+      loadWishes();
+    }catch(err){
+      wishStatus.className = 'form-status err';
+      wishStatus.textContent = 'Gagal mengirim. Silakan coba lagi.';
+    }finally{
+      wishSubmit.disabled = false;
+    }
+  });
+})();
+</script>
+<script>
+(function(){
+  // ---- Cegah pinch-zoom (iOS: event.scale, Android/Chrome: touches.length>1) ----
+  document.addEventListener('touchmove', function (event) {
+    if ((event.scale !== undefined && event.scale !== 1) || (event.touches && event.touches.length > 1)) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  // ---- Cegah double-tap zoom ----
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', function (event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+  }, { passive: false });
+})();
+</script>
+</body>
+</html>
