@@ -350,7 +350,7 @@ async function writeBackCodesAndLinks(env, token, updates) {
 //
 // Env vars (opsional tapi disarankan, Settings > Environment variables di Cloudflare Pages):
 //   GITHUB_OWNER   - default "ProtossDimas"
-//   GITHUB_REPO    - default "WeddingInvitation"
+//   GITHUB_REPO    - default "WeddingInvitationNia"
 //   GITHUB_BRANCH  - default "main"
 //   GITHUB_TOKEN   - opsional. Tanpa token, GitHub API dibatasi 60 request/jam per Worker
 //                    (biasanya cukup karena hasil di-cache 5 menit). Kalau mau lebih aman
@@ -376,7 +376,7 @@ async function listGithubDir(env, dirPath) {
   if (cached && now - cached.at < MEDIA_CACHE_TTL_MS) return cached.data;
 
   const owner = env.GITHUB_OWNER || "ProtossDimas";
-  const repo = env.GITHUB_REPO || "WeddingInvitation";
+  const repo = env.GITHUB_REPO || "WeddingInvitationNia";
   const branch = env.GITHUB_BRANCH || "main";
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${dirPath}?ref=${branch}`;
 
@@ -461,19 +461,22 @@ async function handleGetGuest(code, env) {
 //
 // Ada 2 kanal notifikasi yang jalan BERBARENGAN (saling backup):
 //
-// 1) WhatsApp via Fonnte (gateway WA Indonesia, ada paket gratis) — setup:
-//   a. Daftar & login di https://fonnte.com
-//   b. Menu "Device" > tambah device baru > scan QR pakai WhatsApp
+// 1) WhatsApp via Kirimi.id (gateway WA Indonesia, gratis 1.000 pesan/bulan) — setup:
+//   a. Daftar & login di https://kirimi.id
+//   b. Di dashboard, tambah device baru > scan QR pakai WhatsApp
 //      yang mau dipakai untuk KIRIM notifikasi (bukan nomor yang menerima)
-//   c. Setelah device connect, salin "Device Token"-nya (di halaman Device)
+//   c. Setelah device connect, catat 3 hal dari dashboard: user_code, secret, device_id
 //   d. Di Cloudflare Pages > Settings > Environment variables, tambahkan:
-//        NOTIFY_PHONE   = nomor WA yang MENERIMA notifikasi, format internasional
-//                         TANPA "+" (mis. 6282145091666)
-//        FONNTE_TOKEN   = Device Token dari langkah c
+//        NOTIFY_PHONE       = nomor WA yang MENERIMA notifikasi, format internasional
+//                             TANPA "+" (mis. 6282145091666)
+//        KIRIMI_USER_CODE   = user_code dari langkah c
+//        KIRIMI_SECRET      = secret dari langkah c
+//        KIRIMI_DEVICE_ID   = device_id dari langkah c
 //
-//   Catatan: nomor pengirim (device Fonnte) dan nomor penerima (NOTIFY_PHONE) boleh
-//   beda — device Fonnte cuma jadi "mesin kirim", tidak perlu WA khusus buat pemilik web.
-//   Device Fonnte butuh HP yang tetap online & login WA-nya, jadi kadang perlu reconnect.
+//   Catatan: nomor pengirim (device Kirimi) dan nomor penerima (NOTIFY_PHONE) boleh
+//   beda — device Kirimi cuma jadi "mesin kirim", tidak perlu WA khusus buat pemilik web.
+//   Device Kirimi butuh HP yang tetap online & login WA-nya, jadi kadang perlu reconnect
+//   (sama seperti gateway WA unofficial lainnya).
 //
 // 2) Telegram Bot (BACKUP — tidak butuh reconnect sama sekali, selalu online) — setup:
 //   a. Di HP/PC buka Telegram, chat ke @BotFather
@@ -492,17 +495,18 @@ async function handleGetGuest(code, env) {
 // atau dua-duanya sekaligus untuk saling backup.
 
 async function sendWhatsAppNotification(env, text) {
-  if (!env.NOTIFY_PHONE || !env.FONNTE_TOKEN) return; // belum dikonfigurasi, lewati diam-diam
+  // belum dikonfigurasi, lewati diam-diam
+  if (!env.NOTIFY_PHONE || !env.KIRIMI_USER_CODE || !env.KIRIMI_SECRET || !env.KIRIMI_DEVICE_ID) return;
 
   try {
-    await fetch("https://api.fonnte.com/send", {
+    await fetch("https://api.kirimi.id/v1/send-text", {
       method: "POST",
-      headers: {
-        Authorization: env.FONNTE_TOKEN,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        target: env.NOTIFY_PHONE,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_code: env.KIRIMI_USER_CODE,
+        secret: env.KIRIMI_SECRET,
+        device_id: env.KIRIMI_DEVICE_ID,
+        receiver: env.NOTIFY_PHONE,
         message: text,
       }),
     });
