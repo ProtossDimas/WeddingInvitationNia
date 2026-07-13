@@ -1,0 +1,29 @@
+/photos/*
+  Cache-Control: public, no-cache
+
+/videos/*
+  Cache-Control: public, no-cache
+
+/*.mp3
+  Cache-Control: public, no-cache
+
+/*.wav
+  Cache-Control: public, no-cache
+
+/*.jpg
+  Cache-Control: public, no-cache
+
+/*.JPG
+  Cache-Control: public, no-cache
+
+/*.jpeg
+  Cache-Control: public, no-cache
+
+/*.png
+  Cache-Control: public, no-cache
+
+/*.webp
+  Cache-Control: public, no-cache
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
