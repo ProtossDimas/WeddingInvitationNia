@@ -711,7 +711,7 @@
     padding:22px; max-width:320px; margin:0 auto 14px;
     display:flex; align-items:center; justify-content:space-between; gap:12px;
   }
-  .bank-info{ text-align:left; display:flex; align-items:center; gap:12px; }
+  .bank-info{ text-align:left; display:flex; align-items:center; gap:12px; min-width:0; flex:1; }
   .bank-logo{
     width:48px; height:48px; border-radius:10px; flex-shrink:0;
     display:flex; align-items:center; justify-content:center;
@@ -720,10 +720,10 @@
     overflow:hidden; padding:6px;
   }
   .bank-logo img{ width:100%; height:100%; object-fit:contain; }
-  .bank-info .bank-text{ display:flex; flex-direction:column; }
+  .bank-info .bank-text{ display:flex; flex-direction:column; min-width:0; flex:1; }
   .bank-info .bank-name{ font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--sage);}
   .bank-info .bank-num{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; color:var(--maroon-deep); margin:4px 0;}
-  .bank-info .bank-holder{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; opacity:.92;}
+  .bank-info .bank-holder{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; opacity:.92; white-space:nowrap; overflow:hidden; display:block; max-width:100%; }
   .copy-btn{
     border:1px solid var(--maroon); background:none; color:var(--maroon-deep);
     border-radius:999px; padding:8px 14px; font-size:.68rem; letter-spacing:.06em;
@@ -1946,6 +1946,50 @@
       btn.classList.toggle('is-open', isOpen);
     });
   })();
+
+  // ---- Auto-shrink nama pemilik rekening supaya tetap 1 baris (tidak wrap) ----
+  function fitBankHolderText(el){
+    if (!el) return;
+    // Simpan ukuran font ASLI (dari CSS) sekali saja, supaya perhitungan berikutnya
+    // tidak "mewarisi" ukuran yang sudah pernah diperkecil sebelumnya.
+    if (!el.dataset.baseFontSize){
+      el.style.fontSize = ''; // reset ke CSS asli dulu sebelum diukur
+      const original = parseFloat(getComputedStyle(el).fontSize) || 16.8; // ~1.05rem
+      el.dataset.baseFontSize = original;
+    }
+    const baseSize = parseFloat(el.dataset.baseFontSize);
+    const minSize = 9; // batas minimal px agar tetap terbaca
+    let size = baseSize;
+    el.style.fontSize = size + 'px';
+    while (el.scrollWidth > el.clientWidth && size > minSize){
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  }
+  function fitAllBankHolders(){
+    const els = Array.from(document.querySelectorAll('.bank-holder'));
+    if (els.length === 0) return;
+    els.forEach(fitBankHolderText);
+    // Samakan semua nama ke ukuran terkecil supaya tampil seragam
+    let smallest = Infinity;
+    els.forEach(el => {
+      const size = parseFloat(el.style.fontSize);
+      if (size < smallest) smallest = size;
+    });
+    if (isFinite(smallest)){
+      els.forEach(el => { el.style.fontSize = smallest + 'px'; });
+    }
+  }
+  // Jalankan setelah font & layout siap, dan lagi setiap kali gift details dibuka / ukuran layar berubah
+  window.addEventListener('load', fitAllBankHolders);
+  document.fonts && document.fonts.ready && document.fonts.ready.then(fitAllBankHolders);
+  window.addEventListener('resize', fitAllBankHolders);
+  const giftShowBtnForFit = document.getElementById('giftShowBtn');
+  if (giftShowBtnForFit){
+    giftShowBtnForFit.addEventListener('click', function(){
+      setTimeout(fitAllBankHolders, 260);
+    });
+  }
 
   // ---- Copy bank number / address ----
   document.querySelectorAll('.copy-btn').forEach(function(btn){
