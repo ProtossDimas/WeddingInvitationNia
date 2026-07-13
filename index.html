@@ -514,10 +514,11 @@
     border:1px solid var(--gold-soft); border-radius:18px; padding:26px 22px;
     background:var(--cream-deep);
   }
-  .event-card .ev-name{ font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--maroon-deep); margin-bottom:6px;}
-  .event-card .ev-date{ font-size:.85rem; color:var(--ink); margin-bottom:2px;}
-  .event-card .ev-time{ font-size:.85rem; color:var(--maroon); font-weight:500; margin-bottom:12px;}
-  .event-card .ev-place{ font-family:var(--font-copy); font-size:1.05rem; line-height:1.6; opacity:.8; margin-bottom:16px;}
+  .event-card .ev-name{ font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--maroon-deep); margin-bottom:8px;}
+  .event-card .ev-date{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; color:var(--ink); opacity:.92; margin-bottom:4px;}
+  .event-card .ev-time{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; color:var(--maroon); opacity:.92; margin-bottom:16px;}
+  .event-card .ev-divider{ border:none; border-top:1px solid rgba(0,0,0,.12); margin:0 0 16px;}
+  .event-card .ev-place{ font-family:var(--font-copy); font-style:italic; font-size:1.05rem; line-height:1.75; opacity:.92; margin-bottom:16px;}
   .btn-line{
     display:inline-flex; align-items:center; gap:8px;
     border:1px solid var(--maroon); color:var(--maroon-deep);
@@ -687,7 +688,7 @@
     font-size:2.2rem; line-height:1.15;
     color:var(--cream); margin:0 0 18px;
   }
-  #gift p.lead{ font-family:var(--font-copy); font-size:1.05rem; font-style:italic; opacity:.92; color:var(--cream); max-width:320px; margin:0 auto 26px; line-height:1.8; }
+  #gift p.lead{ font-family:var(--font-copy); font-size:1.05rem; font-style:italic; line-height:1.75; opacity:.92; color:var(--cream); max-width:320px; margin:0 auto 26px; }
   .gift-show-btn{
     display:inline-flex; align-items:center; gap:10px;
     background:var(--cream); color:var(--maroon-deep); border:none;
@@ -981,10 +982,7 @@
         <div class="ev-name">Akad Nikah</div>
         <div class="ev-date">Minggu, 26 Juli 2026</div>
         <div class="ev-time">08.00 WIB — Selesai</div>
-        <div class="ev-place">Tempat Mempelai Wanita<br>Hotel Aksi Natural Resort, Bangka</div>
-        <a class="btn-line" href="https://maps.app.goo.gl/Lh8CuYeq6589gjBj7?g_st=aw" target="_blank" rel="noopener">Lihat Lokasi</a>
-      </div>
-      <div class="event-card">
+        <hr class="ev-divider">
         <div class="ev-name">Resepsi</div>
         <div class="ev-date">Minggu, 26 Juli 2026</div>
         <div class="ev-time">10.00 WIB — Selesai</div>
