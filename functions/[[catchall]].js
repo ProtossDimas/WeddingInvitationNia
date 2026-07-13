@@ -59,7 +59,7 @@ function sanitize(str) {
 //   GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY - private key PEM dari file JSON service account
 //   GUEST_SHEET_ID                     - ID spreadsheet (dari URL sheet)
 //   GUEST_SHEET_RANGE                  - opsional, default "Tamu!A:C" (kolom yang dibaca)
-//   SITE_BASE_URL                      - contoh: https://undangan-nia-dimas.pages.dev
+//   SITE_BASE_URL                      - contoh: https://dimasniawedding.pages.dev
 //
 // Sheet harus di-share (Share > klik tombol) ke email service account dengan akses "Editor"
 // (bukan cuma Viewer, karena Worker ini menulis balik Kode & Link).
