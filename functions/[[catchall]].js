@@ -494,10 +494,13 @@ async function handleGetGuest(code, env) {
 
 async function sendWhatsAppNotification(env, text) {
   // belum dikonfigurasi, lewati diam-diam
-  if (!env.NOTIFY_PHONE || !env.FONNTE_TOKEN) return;
+  if (!env.NOTIFY_PHONE || !env.FONNTE_TOKEN) {
+    console.log("[WA] dilewati: NOTIFY_PHONE atau FONNTE_TOKEN belum diset.");
+    return;
+  }
 
   try {
-    await fetch("https://api.fonnte.com/send", {
+    const res = await fetch("https://api.fonnte.com/send", {
       method: "POST",
       headers: {
         Authorization: env.FONNTE_TOKEN,
@@ -508,16 +511,26 @@ async function sendWhatsAppNotification(env, text) {
         message: text,
       }),
     });
+    const resText = await res.text();
+    if (!res.ok) {
+      console.error(`[WA] Fonnte error (${res.status}): ${resText}`);
+    } else {
+      console.log(`[WA] Fonnte terkirim (${res.status}): ${resText}`);
+    }
   } catch (err) {
     // gagal kirim notifikasi tidak boleh menggagalkan RSVP tamu
+    console.error("[WA] Fetch ke Fonnte gagal: " + err.message);
   }
 }
 
 async function sendTelegramNotification(env, text) {
-  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return; // belum dikonfigurasi, lewati diam-diam
+  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
+    console.log("[Telegram] dilewati: TELEGRAM_BOT_TOKEN atau TELEGRAM_CHAT_ID belum diset.");
+    return;
+  }
 
   try {
-    await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    const res = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -525,8 +538,15 @@ async function sendTelegramNotification(env, text) {
         text,
       }),
     });
+    const resText = await res.text();
+    if (!res.ok) {
+      console.error(`[Telegram] API error (${res.status}): ${resText}`);
+    } else {
+      console.log(`[Telegram] terkirim (${res.status}): ${resText}`);
+    }
   } catch (err) {
     // gagal kirim notifikasi tidak boleh menggagalkan RSVP tamu
+    console.error("[Telegram] Fetch ke Telegram gagal: " + err.message);
   }
 }
 
@@ -587,12 +607,17 @@ async function handlePostWish(request, env, context) {
   }
 
   if (attendance === "hadir" || attendance === "tidak" || attendance === "ragu") {
+    console.log(`[RSVP] Memicu notifikasi untuk "${name}", attendance="${attendance}".`);
     const notify = sendRsvpNotification(env, { name, attendance, guestCount, message });
     if (context && context.waitUntil) {
       context.waitUntil(notify);
     } else {
       await notify;
     }
+  }
+
+  if (!attendance) {
+    console.log(`[RSVP] Tidak memicu notifikasi untuk "${name}" karena attendance kosong (kemungkinan form ucapan saja).`);
   }
 
   return json({ ok: true });
