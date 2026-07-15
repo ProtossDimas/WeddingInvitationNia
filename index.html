@@ -1834,7 +1834,7 @@
   const gcNext = document.getElementById('gcNext');
   let gcCurrent = 0;
   let gcAutoplayTimer = null;
-  const GC_AUTOPLAY_MS = 3500;
+  const GC_AUTOPLAY_MS = 2800;
 
   function buildCarouselSlide(item, index){
     const div = document.createElement('div');
@@ -1858,11 +1858,26 @@
     div.addEventListener('click', () => goToSlide(index));
     return div;
   }
+  // Animasi geser custom (lebih cepat & konsisten dibanding smooth-scroll bawaan browser)
+  function animateScrollTo(el, targetLeft, duration){
+    const startLeft = el.scrollLeft;
+    const change = targetLeft - startLeft;
+    if (Math.abs(change) < 1) return;
+    const startTime = performance.now();
+    function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+    function step(now){
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      el.scrollLeft = startLeft + change * easeOutCubic(t);
+      if (t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
   function goToSlide(index){
     if (!galleryItems.length) return;
     gcCurrent = (index + galleryItems.length) % galleryItems.length;
     const slideWidth = gcTrack.clientWidth;
-    gcTrack.scrollTo({ left: gcCurrent * slideWidth, behavior:'smooth' });
+    animateScrollTo(gcTrack, gcCurrent * slideWidth, 380);
     updateActiveThumb();
   }
   function updateActiveThumb(){
@@ -1872,7 +1887,7 @@
       // geser hanya strip thumbnail secara horizontal (scrollTo pada elemen itu sendiri),
       // JANGAN pakai scrollIntoView karena itu bisa ikut menggeser halaman secara vertikal.
       const target = activeThumb.offsetLeft - (gcThumbs.clientWidth - activeThumb.clientWidth) / 2;
-      gcThumbs.scrollTo({ left: target, behavior:'smooth' });
+      animateScrollTo(gcThumbs, target, 380);
     }
   }
   let gcVisible = false;
